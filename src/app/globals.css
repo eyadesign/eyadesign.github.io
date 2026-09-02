@@ -1,0 +1,156 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------
+   DESIGN TOKENS
+   Monochrome system + one restrained accent. Radius kept minimal.
+   ------------------------------------------------------------------- */
+
+:root {
+  /* surface */
+  --color-bg: #faf9f6;
+  --color-bg-raised: #f2f0ea;
+  --color-fg: #14130f;
+  --color-muted: #6f6c62;
+  --color-faint: #b6b2a5;
+  --color-border: #e4e1d8;
+
+  /* accent — used sparingly: links, availability dot, active states */
+  --color-accent: #b5401c;
+
+  /* typography */
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, "SF Mono", monospace;
+
+  /* grid */
+  --container-max: 1600px;
+  --gutter: clamp(20px, 4vw, 48px);
+
+  /* motion */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast: 180ms;
+  --dur-base: 400ms;
+  --dur-slow: 650ms;
+
+  --radius-sm: 2px;
+  --radius-md: 4px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg: #100f0d;
+    --color-bg-raised: #18170f;
+    --color-fg: #f4f2eb;
+    --color-muted: #8f8b7e;
+    --color-faint: #4a473d;
+    --color-border: #2a2820;
+    --color-accent: #e2703d;
+  }
+}
+
+@theme inline {
+  --color-bg: var(--color-bg);
+  --color-bg-raised: var(--color-bg-raised);
+  --color-fg: var(--color-fg);
+  --color-muted: var(--color-muted);
+  --color-faint: var(--color-faint);
+  --color-border: var(--color-border);
+  --color-accent: var(--color-accent);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+}
+
+* {
+  border-color: var(--color-border);
+}
+
+html {
+  color-scheme: light dark;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-fg);
+  font-family: var(--font-sans);
+}
+
+::selection {
+  background: var(--color-fg);
+  color: var(--color-bg);
+}
+
+a {
+  color: inherit;
+}
+
+button {
+  font-family: inherit;
+}
+
+/* ---------------------------------------------------------------------
+   GRID / LAYOUT UTILITIES
+   ------------------------------------------------------------------- */
+
+.container-grid {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  column-gap: clamp(12px, 2vw, 24px);
+}
+
+@media (min-width: 768px) {
+  .container-grid {
+    grid-template-columns: repeat(8, 1fr);
+  }
+}
+
+@media (min-width: 1100px) {
+  .container-grid {
+    grid-template-columns: repeat(12, 1fr);
+  }
+}
+
+/* ---------------------------------------------------------------------
+   MOTION SAFETY
+   ------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* underline-draw utility used by nav / text links */
+.link-underline {
+  position: relative;
+  text-decoration: none;
+}
+
+.link-underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 100%;
+  bottom: -2px;
+  height: 1px;
+  background: currentColor;
+  transition: right var(--dur-fast) var(--ease-out);
+}
+
+.link-underline:hover::after,
+.link-underline:focus-visible::after {
+  right: 0;
+}
+
+.focus-ring:focus-visible {
+  outline: 1.5px solid var(--color-accent);
+  outline-offset: 3px;
+}
