@@ -1,35 +1,41 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Archivo } from "next/font/google";
 import "./globals.css";
-import { Navigation } from "@/components/Navigation";
+import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
+import { SmoothScroll } from "@/components/SmoothScroll";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const archivo = Archivo({
+  variable: "--font-archivo",
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
   title: "Eyad Mahmoud — Senior UI/UX & Product Designer",
   description:
-    "Eyad Mahmoud is a Senior UI/UX & Product Designer turning complex workflows, user needs and business requirements into clear, useful and polished digital experiences.",
+    "Eyad Mahmoud is a Senior UI/UX & Product Designer based in Alexandria, Egypt, designing highly usable SaaS, mobile and web products for clients across the USA, Europe and the Middle East.",
+  openGraph: {
+    title: "Eyad Mahmoud — Senior UI/UX & Product Designer",
+    description:
+      "Research-driven product design, usability and scalable design systems for global clients.",
+    type: "website",
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#faf7f3",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col">
-        <Navigation />
-        <main className="flex-1">{children}</main>
+    <html lang="en" className={archivo.variable}>
+      <body>
+        <SmoothScroll />
+        <Nav />
+        <main>{children}</main>
         <Footer />
+        <div className="grain" aria-hidden="true" />
       </body>
     </html>
   );

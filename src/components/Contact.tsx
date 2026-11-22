@@ -1,122 +1,107 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence, useMotionValue, useSpring } from "framer-motion";
-import { contact } from "@/lib/content";
+import { site } from "@/lib/site";
+import { BehanceIcon, LinkedInIcon, MailIcon } from "./Icons";
 import { Reveal } from "./Reveal";
-import { MagneticLink } from "./MagneticLink";
-import { easeOut } from "@/lib/motion";
-import { useIsCoarsePointer, usePrefersReducedMotion } from "@/lib/hooks";
 
-function CopyEmail() {
+const field =
+  "w-full rounded-[8px] border border-paper/15 bg-white/[0.04] px-3 py-2.5 text-[15px] text-paper placeholder:text-paper/35 outline-none transition-colors focus:border-paper/60";
+
+export function Contact() {
   const [copied, setCopied] = useState(false);
 
-  async function handleClick(e: React.MouseEvent<HTMLAnchorElement>) {
+  function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const data = new FormData(e.currentTarget);
+    const name = String(data.get("name") ?? "").trim();
+    const email = String(data.get("email") ?? "").trim();
+    const project = String(data.get("project") ?? "").trim();
+    const subject = `Project inquiry${name ? ` from ${name}` : ""}`;
+    const body = `${project}\n\n— ${name}${email ? ` (${email})` : ""}`;
+    window.location.href = `mailto:${site.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  }
+
+  async function copyEmail() {
     try {
-      await navigator.clipboard.writeText(contact.email);
-      e.preventDefault();
+      await navigator.clipboard.writeText(site.email);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
-      /* clipboard unavailable — let mailto fallback proceed */
+      window.location.href = `mailto:${site.email}`;
     }
   }
 
-  return (
-    <a
-      href={`mailto:${contact.email}`}
-      onClick={handleClick}
-      className="link-underline focus-ring inline-flex items-center gap-2 text-[15px]"
-    >
-      {copied ? "EMAIL COPIED ✓" : "COPY EMAIL"}
-    </a>
-  );
-}
-
-function SayHello({ children }: { children: React.ReactNode }) {
-  const [hovering, setHovering] = useState(false);
-  const isCoarse = useIsCoarsePointer();
-  const reducedMotion = usePrefersReducedMotion();
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-  const springX = useSpring(x, { damping: 20, stiffness: 250 });
-  const springY = useSpring(y, { damping: 20, stiffness: 250 });
-
-  function handleMove(e: React.MouseEvent) {
-    if (isCoarse || reducedMotion) return;
-    const bounds = e.currentTarget.getBoundingClientRect();
-    x.set(e.clientX - bounds.left + 18);
-    y.set(e.clientY - bounds.top - 10);
-  }
+  const social = [
+    { label: "LinkedIn", href: site.linkedin, Icon: LinkedInIcon },
+    { label: "Behance", href: site.behance, Icon: BehanceIcon },
+  ];
 
   return (
-    <div
-      className="relative inline-block"
-      onMouseMove={handleMove}
-      onMouseEnter={() => setHovering(true)}
-      onMouseLeave={() => setHovering(false)}
-    >
-      {children}
-      {!isCoarse && !reducedMotion && (
-        <AnimatePresence>
-          {hovering && (
-            <motion.span
-              style={{ x: springX, y: springY }}
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.9 }}
-              transition={{ duration: 0.2, ease: easeOut }}
-              className="pointer-events-none absolute left-0 top-0 whitespace-nowrap bg-[var(--color-fg)] text-[var(--color-bg)] text-[11px] font-mono tracking-[0.08em] px-2.5 py-1"
+    <section id="contact" className="scroll-mt-8 py-[clamp(80px,10vw,140px)]">
+      <div className="container-x grid gap-12 md:grid-cols-2">
+        <Reveal className="flex flex-col justify-between gap-10">
+          <div>
+            <h2 className="t-h2">Let’s talk.</h2>
+            <p className="t-body mt-4 max-w-[380px]">
+              Have a product worth improving? Fill out the form and I’ll get back to you soon.
+            </p>
+            <button
+              type="button"
+              onClick={copyEmail}
+              className="t-body mt-6 underline decoration-[var(--ink-10)] underline-offset-4 transition-colors hover:decoration-ink"
             >
-              SAY HELLO →
-            </motion.span>
-          )}
-        </AnimatePresence>
-      )}
-    </div>
-  );
-}
-
-export function Contact() {
-  return (
-    <section id="contact" className="py-28 md:py-36 scroll-mt-24">
-      <div className="container-grid">
-        <Reveal className="col-span-4 md:col-span-9">
-          <SayHello>
-            <MagneticLink
-              href={`mailto:${contact.email}`}
-              className="inline-block text-[clamp(32px,5.5vw,72px)] leading-[1.02] tracking-[-0.02em] font-medium focus-ring"
-            >
-              Have a product worth
-              <br />
-              improving? Let&rsquo;s talk →
-            </MagneticLink>
-          </SayHello>
-        </Reveal>
-
-        <Reveal
-          delay={0.08}
-          className="col-span-4 md:col-span-3 mt-10 md:mt-2 flex flex-col gap-4 md:items-end md:text-right"
-        >
-          <CopyEmail />
-          <div className="flex gap-5 text-[13px] text-[var(--color-muted)]">
+              {copied ? "Email copied ✓" : site.email}
+            </button>
+          </div>
+          <div className="flex gap-2">
+            {social.map(({ label, href, Icon }) => (
+              <a
+                key={label}
+                href={href}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={label}
+                className="flex h-10 w-10 items-center justify-center rounded-[10px] border border-[var(--ink-10)] transition-colors hover:bg-ink hover:text-paper"
+              >
+                <Icon className="h-[18px] w-[18px]" />
+              </a>
+            ))}
             <a
-              href={contact.linkedin}
-              target="_blank"
-              rel="noreferrer"
-              className="link-underline focus-ring"
+              href={`mailto:${site.email}`}
+              aria-label="Email"
+              className="flex h-10 w-10 items-center justify-center rounded-[10px] border border-[var(--ink-10)] transition-colors hover:bg-ink hover:text-paper"
             >
-              LinkedIn ↗
-            </a>
-            <a
-              href={contact.behance}
-              target="_blank"
-              rel="noreferrer"
-              className="link-underline focus-ring"
-            >
-              Behance ↗
+              <MailIcon className="h-[18px] w-[18px]" />
             </a>
           </div>
+        </Reveal>
+
+        <Reveal delay={0.1}>
+          <form
+            onSubmit={onSubmit}
+            className="flex flex-col gap-4 rounded-[20px] bg-ink p-5 text-paper md:ml-auto md:max-w-[460px]"
+          >
+            <label className="flex flex-col gap-2 text-[15px]">
+              Name
+              <input name="name" required autoComplete="name" placeholder="Enter your name" className={field} />
+            </label>
+            <label className="flex flex-col gap-2 text-[15px]">
+              Email
+              <input name="email" type="email" required autoComplete="email" placeholder="Enter your email" className={field} />
+            </label>
+            <label className="flex flex-col gap-2 text-[15px]">
+              Your Project
+              <textarea name="project" required rows={5} placeholder="Tell me about your project" className={`${field} resize-y`} />
+            </label>
+            <button
+              type="submit"
+              className="mt-1 rounded-[8px] bg-paper py-2.5 text-[15px] font-medium text-ink transition-transform duration-200 hover:scale-[1.01] active:scale-[0.99]"
+            >
+              Submit
+            </button>
+            <p className="text-center text-[13px] text-paper/40">Opens your email app with the message ready.</p>
+          </form>
         </Reveal>
       </div>
     </section>

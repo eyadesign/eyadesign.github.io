@@ -1,188 +1,365 @@
-import { Project } from "./types";
+export interface Block {
+  title: string;
+  text?: string[];
+  list?: string[];
+  /** One image renders full width, two render side by side. */
+  images?: string[];
+}
+
+export interface Project {
+  slug: string;
+  title: string;
+  /** Short line under the card title. */
+  tagline: string;
+  category: string;
+  platform: string;
+  client: string;
+  /** Label for the client field, e.g. "Client" or "Market". */
+  clientLabel?: string;
+  summary: string;
+  cover: string;
+  blocks: Block[];
+  note?: string;
+}
+
+const s = (slug: string, n: number) =>
+  `/work/${slug}/${String(n).padStart(2, "0")}.webp`;
 
 export const projects: Project[] = [
   {
-    id: "carhive",
-    slug: "carhive",
-    number: "01",
-    title: "CarHive",
-    category: "Product Design / UX / UI",
-    year: "2024",
-    role: "Product Designer",
-    timeline: "4 months",
-    team: "1 designer, 2 engineers, 1 PM",
-    summary: "Redesigning the car rental experience around clarity, confidence and ease.",
-    indexNote: "Car Rental Experience",
-    heroImage: { aspect: "full-bleed", label: "CarHive — Hero" },
-
-    overview:
-      "[CASE STUDY INTRODUCTION — REPLACE LATER] CarHive is a car rental platform connecting renters with independent fleet owners. The product needed a redesign that made booking a car feel as simple as booking a ride.",
-    challenge:
-      "[PROBLEM STATEMENT — REPLACE LATER] Renters were dropping off mid-booking, unsure about pricing, availability and vehicle condition. The existing flow buried trust-building information behind too many steps.",
-    context:
-      "[CONTEXT — REPLACE LATER] The product serves two audiences at once — renters searching for a vehicle and owners managing a fleet — and both needed to feel considered without the interface serving neither well.",
-    research:
-      "[RESEARCH DETAILS — REPLACE LATER] Research combined usability sessions with existing renters, a competitive review of regional and global rental platforms, and a teardown of the current funnel to locate drop-off points.",
-    insights: [
-      "[INSIGHT — REPLACE LATER] Renters wanted price certainty before entering their details.",
-      "[INSIGHT — REPLACE LATER] Vehicle trust signals (condition, owner rating) were the top driver of booking confidence.",
-      "[INSIGHT — REPLACE LATER] The multi-step booking flow was abandoned most often at document upload.",
-    ],
-    userFlows: { aspect: "landscape", label: "CarHive — Booking Flow" },
-    wireframes: { aspect: "landscape", label: "CarHive — Early Wireframes" },
-    designDecisions: [
-      {
-        heading: "Price transparency, upfront",
-        body: "[DESIGN DECISION — REPLACE LATER] Total price with all fees moved to the first screen, before any commitment from the user.",
-      },
-      {
-        heading: "Trust before transaction",
-        body: "[DESIGN DECISION — REPLACE LATER] Vehicle condition photos and owner ratings were surfaced earlier in the flow, ahead of payment details.",
-      },
-      {
-        heading: "Progressive documentation",
-        body: "[DESIGN DECISION — REPLACE LATER] Document upload was split into an optional early step and a required late step, reducing perceived friction.",
-      },
-    ],
-    visualDesign: {
-      heading: "A calmer visual language",
-      body: "[DESIGN DECISION — REPLACE LATER] The interface moved to a restrained palette and a stronger type system so vehicle photography could carry more visual weight.",
-      image: { aspect: "portrait", label: "CarHive — Visual System" },
-    },
-    designSystem: {
-      heading: "A system built to scale",
-      body: "[DESIGN DECISION — REPLACE LATER] Components were rebuilt as a token-driven system shared between the renter and owner surfaces.",
-      image: { aspect: "landscape", label: "CarHive — Design System" },
-    },
-    finalSolution:
-      "[FINAL SOLUTION — REPLACE LATER] The redesigned flow surfaces price, trust signals and availability within the first two screens, with document upload reorganised around user momentum rather than internal process order.",
-    gallery: [
-      { aspect: "landscape", label: "CarHive — Search" },
-      { aspect: "portrait", label: "CarHive — Vehicle Detail" },
-      { aspect: "landscape", label: "CarHive — Checkout" },
-      { aspect: "square", label: "CarHive — Owner Dashboard" },
-    ],
-    impact: [
-      "[IMPACT METRIC — TO BE PROVIDED]",
-      "[IMPACT METRIC — TO BE PROVIDED]",
-    ],
-    reflection:
-      "[REFLECTION — REPLACE LATER] The project reinforced how much booking confidence depends on sequencing — the same information, reordered, changed how the whole flow felt.",
-  },
-  {
-    id: "pex",
-    slug: "palestinian-stock-exchange",
-    number: "02",
-    title: "Palestinian Stock Exchange",
-    category: "Product Design / UX / UI",
-    year: "2024",
-    role: "Product Designer",
-    timeline: "3 months",
-    team: "1 designer, 3 engineers",
-    summary: "Bringing clarity to real-time market data across desktop and mobile.",
-    indexNote: "Financial Product Experience — Desktop + Mobile",
-    heroImage: { aspect: "full-bleed", label: "PEX — Hero" },
-    overview:
-      "[CASE STUDY INTRODUCTION — REPLACE LATER] The Palestinian Stock Exchange (PEX) platform gives investors and analysts access to live market data, company filings and trading history across desktop and mobile.",
-    challenge:
-      "[PROBLEM STATEMENT — REPLACE LATER] Dense financial data needed to remain scannable at a glance while staying precise enough for professional analysis.",
-    designDecisions: [
-      {
-        heading: "One data hierarchy, two densities",
-        body: "[DESIGN DECISION — REPLACE LATER] Desktop and mobile share the same underlying hierarchy, with density — not structure — adapted per surface.",
-      },
-    ],
-    gallery: [
-      { aspect: "landscape", label: "PEX — Market Overview" },
-      { aspect: "portrait", label: "PEX — Mobile Watchlist" },
-    ],
-    impact: ["[IMPACT METRIC — TO BE PROVIDED]"],
-  },
-  {
-    id: "maintenance-tracker",
     slug: "maintenance-tracker",
-    number: "03",
     title: "Maintenance Tracker",
-    category: "Product Design / UX / UI",
-    year: "2024",
-    role: "Product Designer",
-    summary: "A B2B SaaS platform for tracking equipment maintenance across sites.",
-    indexNote: "B2B SaaS",
-    heroImage: { aspect: "full-bleed", label: "Maintenance Tracker — Hero" },
-    overview:
-      "[CASE STUDY INTRODUCTION — REPLACE LATER] A scheduling and reporting tool built for maintenance teams managing equipment across multiple facilities.",
-    challenge:
-      "[PROBLEM STATEMENT — REPLACE LATER] Field technicians and office planners needed the same data presented in very different ways — one on mobile, in the field, one on desktop, in review.",
-    gallery: [{ aspect: "landscape", label: "Maintenance Tracker — Dashboard" }],
-    impact: ["[IMPACT METRIC — TO BE PROVIDED]"],
+    tagline: "B2B SaaS for Car Maintenance Centers",
+    category: "B2B SaaS",
+    platform: "Web App",
+    clientLabel: "Market",
+    client: "USA",
+    summary:
+      "A SaaS product designed for car maintenance centers in the USA. It streamlines daily operations, enhances efficiency and reduces costs, tailored to the needs of each maintenance center.",
+    cover: "/work/maintenance-tracker/cover.webp",
+    blocks: [
+      {
+        title: "The Problem",
+        text: [
+          "Users were struggling with the work order flow: the place where they receive cars, inspect them and carry out every procedure a car needs, across the different roles inside a maintenance center.",
+          "As a UX design team, our goal was to analyze the pain points raised by the business team in the work order flow, and implement design improvements that make it easier to use and reduce task time.",
+        ],
+        images: [s("maintenance-tracker", 1)],
+      },
+      {
+        title: "Task Analysis & Usability Review",
+        text: [
+          "We ran a task analysis to understand the users' goals and the tasks they perform to achieve them, breaking complex tasks into smaller steps and identifying pain points where users might struggle.",
+          "Hierarchical task analysis diagrams were built for each core role, such as the engineer (inspector) and the service advisor, then paired with an expert usability review of every step of the flow.",
+        ],
+        images: [s("maintenance-tracker", 2), s("maintenance-tracker", 3)],
+      },
+      {
+        title: "Expert Review Findings",
+        list: [
+          "There was no edit or delete option for an inspection.",
+          "The plus icon conveyed the wrong meaning.",
+          "Two lines of tabs went against the best practices of tabs.",
+          "Saving a report was not clear or descriptive.",
+          "The “show to technician” option appeared before any technician was selected.",
+        ],
+        images: [s("maintenance-tracker", 4)],
+      },
+      {
+        title: "Ideating Solutions",
+        text: [
+          "Before usability testing, we ideated solutions for the problems uncovered by the task analysis and review: a more descriptive inspection flow with inline “add inspection”, a cleaner parts mapping step, clearer client approval with confirmation, and a maintenance view split into parts, operations and programming.",
+        ],
+        images: [
+          s("maintenance-tracker", 5),
+          s("maintenance-tracker", 6),
+          s("maintenance-tracker", 7),
+        ],
+      },
+      {
+        title: "Usability Testing",
+        text: [
+          "To validate whether the proposed solutions improved the work order flow, we ran usability testing tailored to car maintenance engineers. The second inspection proposal proved more usable and resulted in a lower task time.",
+        ],
+        images: [s("maintenance-tracker", 8), s("maintenance-tracker", 9)],
+      },
+      {
+        title: "Designing a Better Experience",
+        text: [
+          "With enough data to understand the flow's problems, we designed the improved experience across inspection, parts mapping, client approval, parts order, maintenance, validation and history.",
+        ],
+        images: [s("maintenance-tracker", 10)],
+      },
+    ],
   },
   {
-    id: "gaith",
+    slug: "carhive",
+    title: "CarHive",
+    tagline: "Car Rental Mobile App in KSA",
+    category: "Car Rental",
+    platform: "Mobile App",
+    clientLabel: "Market",
+    client: "Saudi Arabia",
+    summary:
+      "A leading car rental app in KSA. CarHive lets customers search available rental cars, choose pick-up and drop-off locations and select rental periods directly from their phone.",
+    cover: "/work/carhive/cover.webp",
+    note: "Due to NDA restrictions, the full case study is available upon request.",
+    blocks: [
+      {
+        title: "Problem & Goal",
+        text: [
+          "CarHive, a car rental service based in Saudi Arabia, was facing low conversion rates and high cancellation rates on its mobile app, resulting in a poor experience for customers.",
+          "Our goal was to identify the pain points in the app's user journey and implement design improvements that increase conversion, reduce cancellations and improve the overall experience.",
+          "We chose the design thinking framework (Empathize, Define, Ideate, Prototype, Test) as a user-centric way to deeply understand user needs, the problem context and its constraints.",
+        ],
+        images: [s("carhive", 1)],
+      },
+      {
+        title: "01 — Information Architecture",
+        text: [
+          "Using information architecture testing methods like card sorting and tree testing, we tested CarHive's information architecture to identify findability problems.",
+        ],
+        images: [s("carhive", 2)],
+      },
+      {
+        title: "02 — Competitive Analysis",
+        text: [
+          "Analyzing competitors' booking flows helped us identify problems in our own process. By studying their flows thoroughly, we found areas for improvement.",
+        ],
+        images: [s("carhive", 3)],
+      },
+      {
+        title: "03 — Heuristic Evaluation",
+        text: [
+          "A heuristic evaluation surfaced deeper issues that are easy to miss but quietly affect the experience, and we recommended a solution for each one.",
+        ],
+        images: [s("carhive", 4)],
+      },
+      {
+        title: "04 — Usability Testing",
+        text: [
+          "We used Useberry to run unmoderated usability testing and gather feedback efficiently, then complemented it with remote moderated sessions to explore user behavior in more depth.",
+        ],
+        images: [s("carhive", 5)],
+      },
+      {
+        title: "05 — Designing a Better Experience",
+        text: [
+          "With enough data to understand the problem and the market, we designed an improved experience across search, car details and booking.",
+        ],
+        images: [s("carhive", 6)],
+      },
+    ],
+  },
+  {
+    slug: "pex",
+    title: "Palestine Exchange",
+    tagline: "Stock Exchange Platform Redesign",
+    category: "Fintech",
+    platform: "Desktop & Mobile Web",
+    client: "Palestine Exchange",
+    summary:
+      "The official Palestine stock exchange platform, giving users comprehensive stock tracking, legal insights and in-depth Palestinian market information, redesigned for usability and visual clarity.",
+    cover: "/work/pex/cover.webp",
+    blocks: [
+      {
+        title: "Goals",
+        list: [
+          "Align with the business on all needs.",
+          "Identify usability issues and possible information architecture enhancements.",
+          "Design a more usable, useful and visually appealing platform.",
+        ],
+        images: [s("pex", 1)],
+      },
+      {
+        title: "01 — Competitive Analysis",
+        text: [
+          "A thorough competitive analysis identified industry-leading standards in information architecture, navigation and visual data representation.",
+        ],
+        images: [s("pex", 2)],
+      },
+      {
+        title: "02 — Medium Fidelity Wireframes",
+        text: [
+          "Medium fidelity wireframes established the right information architecture, intuitive navigation and effective visual data representation before any visual design.",
+        ],
+        images: [s("pex", 3)],
+      },
+      {
+        title: "03 — Designing a Better Experience",
+        text: [
+          "The wireframes were transformed into high fidelity designs that blend aesthetics with stronger functionality, elevating the trading experience.",
+        ],
+        images: [s("pex", 4)],
+      },
+      {
+        title: "Before & After",
+        images: [s("pex", 5), s("pex", 6), s("pex", 7)],
+      },
+    ],
+  },
+  {
+    slug: "ams",
+    title: "AMS Mobile App",
+    tagline: "Antimicrobial Stewardship · Pfizer",
+    category: "Healthcare",
+    platform: "Mobile App",
+    client: "Pfizer",
+    summary:
+      "Improve antibiotic use in your hospital with an AMS assessment. A mobile app that guides healthcare professionals through assessing their Antimicrobial Stewardship Program and delivers Pfizer certificates for hospitals.",
+    cover: "/work/ams/cover.webp",
+    blocks: [
+      {
+        title: "Goal & Scope",
+        text: [
+          "Design a user interface for a mobile app that guides healthcare professionals through an assessment of their Antimicrobial Stewardship Program (ASP).",
+          "The project focused on an intuitive, user-friendly UI that walks users through a comprehensive assessment, highlighting areas of strength and identifying opportunities for improvement.",
+        ],
+        images: [s("ams", 1)],
+      },
+      {
+        title: "01 — Competitive Analysis",
+        text: [
+          "We analyzed existing indirect competitors to identify their strengths, weaknesses and potential areas for improvement in the proposed app.",
+        ],
+        images: [s("ams", 2)],
+      },
+      {
+        title: "02 — Ideation",
+        text: [
+          "Using the “Crazy 8s” technique, we rapidly generated a diverse range of UI concepts and functionalities within a time-boxed session.",
+        ],
+        images: [s("ams", 3)],
+      },
+      {
+        title: "03 — UI Design",
+        text: [
+          "Based on the insights from the previous phases, we designed the app's interface for clarity, intuitiveness and a seamless assessment experience.",
+        ],
+        images: [s("ams", 4)],
+      },
+    ],
+  },
+  {
     slug: "gaith",
-    number: "04",
     title: "Gaith",
-    category: "UX / UI",
-    year: "2023",
-    role: "UX/UI Designer",
-    summary: "A digital media experience designed for engagement and discovery.",
-    indexNote: "Digital Media Experience",
-    heroImage: { aspect: "full-bleed", label: "Gaith — Hero" },
-    overview:
-      "[CASE STUDY INTRODUCTION — REPLACE LATER] Gaith is a digital media experience focused on content discovery and audience engagement.",
-    gallery: [{ aspect: "portrait", label: "Gaith — Content Feed" }],
-    impact: ["[IMPACT METRIC — TO BE PROVIDED]"],
+    tagline: "Donation Platform Mobile App",
+    category: "Non-profit",
+    platform: "Mobile App",
+    clientLabel: "Market",
+    client: "Arab World",
+    summary:
+      "One of the largest donation platforms in the Arab world, redesigned as a mobile app that makes giving simpler, more transparent and accessible.",
+    cover: "/work/gaith/cover.webp",
+    blocks: [
+      {
+        title: "Goals",
+        list: [
+          "Create a user-friendly and intuitive mobile application.",
+          "Let users view detailed information about charities.",
+          "Make the app accessible to users with disabilities.",
+        ],
+        images: [s("gaith", 1)],
+      },
+      {
+        title: "01 — User Research",
+        text: [
+          "Extensive research to understand the target audience, including their needs, preferences and pain points.",
+        ],
+        images: [s("gaith", 2)],
+      },
+      {
+        title: "02 — Low Fidelity Wireframes",
+        text: [
+          "The research and personas shaped a basic layout and structure for the mobile application.",
+        ],
+        images: [s("gaith", 3)],
+      },
+      {
+        title: "03 — Designing a Better Experience",
+        text: [
+          "In the high fidelity phase, the client's vision and user needs became pixel-perfect screens, with refined typography, color and layout for a cohesive interface.",
+        ],
+        images: [s("gaith", 4), s("gaith", 5), s("gaith", 6)],
+      },
+      {
+        title: "04 — Interactive Prototype",
+        text: [
+          "The high fidelity screens became a functional prototype, letting users explore the solutions and give feedback before development.",
+        ],
+        images: [s("gaith", 7)],
+      },
+      {
+        title: "05 — Usability Testing",
+        text: [
+          "Participants navigated the prototype through real-world scenarios, helping us identify usability issues and make sure the final product felt intuitive and seamless.",
+        ],
+        images: [s("gaith", 8)],
+      },
+    ],
   },
   {
-    id: "environmental-impact-dashboard",
-    slug: "environmental-impact-dashboard",
-    number: "05",
-    title: "Environmental Impact Dashboard",
-    category: "Data Visualization / Product Design",
-    year: "2023",
-    role: "Product Designer",
-    summary: "Making complex environmental data legible for non-specialist decision makers.",
-    indexNote: "Data Visualization",
-    heroImage: { aspect: "full-bleed", label: "Environmental Impact Dashboard — Hero" },
-    overview:
-      "[CASE STUDY INTRODUCTION — REPLACE LATER] A dashboard translating environmental monitoring data into clear, decision-ready visualisations.",
-    gallery: [{ aspect: "landscape", label: "Dashboard — Overview" }],
-    impact: ["[IMPACT METRIC — TO BE PROVIDED]"],
-  },
-  {
-    id: "schoola",
-    slug: "schoola",
-    number: "06",
-    title: "Schoola",
-    category: "UX / UI",
-    year: "2023",
-    role: "UX/UI Designer",
-    summary: "An education platform connecting students, teachers and parents.",
-    indexNote: "Education Platform",
-    heroImage: { aspect: "full-bleed", label: "Schoola — Hero" },
-    overview:
-      "[CASE STUDY INTRODUCTION — REPLACE LATER] Schoola is an education platform built to keep students, teachers and parents aligned on progress and schedules.",
-    gallery: [{ aspect: "landscape", label: "Schoola — Class Overview" }],
-    impact: ["[IMPACT METRIC — TO BE PROVIDED]"],
+    slug: "tarasol",
+    title: "Tarasol",
+    tagline: "Ministries Communication App",
+    category: "Government",
+    platform: "Tablet & Mobile",
+    client: "Egyptian Ministries",
+    summary:
+      "The main tool used by Egyptian ministries for internal and external communication: exchanging correspondence, tasks and attachments, redesigned for clarity and usability.",
+    cover: "/work/tarasol/cover.webp",
+    blocks: [
+      {
+        title: "Overview & Scope",
+        text: [
+          "Tarasol is a tablet and mobile application that streamlines communication within Egyptian government ministries. The project aimed to improve its usability and adoption across ministries.",
+          "The scope covered UI simplification, optimizing functionality for efficient access to information, and consistency across the tablet and mobile apps.",
+        ],
+        images: ["/work/tarasol/overview.webp"],
+      },
+      {
+        title: "Challenges",
+        list: [
+          "Complex interface: the initial interface was cluttered and lacked intuitive navigation, causing confusion and frustration.",
+          "Information overload: users needed to access all relevant content at once, without excessive scrolling, to act efficiently.",
+        ],
+        images: [s("tarasol", 1)],
+      },
+      {
+        title: "01 — Competitive Analysis",
+        text: [
+          "To find best practices in flow efficiency and task completion time, we analyzed indirect competitors and evaluated their strengths and weaknesses.",
+        ],
+        images: [s("tarasol", 2)],
+      },
+      {
+        title: "02 — Ideation & Testing",
+        text: [
+          "Using the “Crazy 8s” technique, we rapidly generated a diverse range of UI concepts and functionalities within a time-boxed session.",
+        ],
+        images: [s("tarasol", 3)],
+      },
+      {
+        title: "03 — UI Design",
+        text: [
+          "Based on the insights from the previous phases, we designed an interface built for clarity, intuitiveness and a seamless experience on tablet and mobile.",
+        ],
+        images: [s("tarasol", 4)],
+      },
+    ],
   },
 ];
 
-export function getProject(slug: string): Project | undefined {
+export const featured = projects.slice(0, 4);
+
+export function getProject(slug: string) {
   return projects.find((p) => p.slug === slug);
 }
 
-export function getAdjacentProject(slug: string): Project {
-  const index = projects.findIndex((p) => p.slug === slug);
-  return projects[(index + 1) % projects.length];
+export function moreProjects(slug: string, count = 2) {
+  const i = projects.findIndex((p) => p.slug === slug);
+  return Array.from(
+    { length: count },
+    (_, k) => projects[(i + 1 + k) % projects.length]
+  );
 }
-
-export const ndaWork = {
-  note: "A selection of product work cannot be shown publicly due to confidentiality. Detailed case studies are available during the interview process.",
-  entries: [
-    { client: "Pfizer", category: "Mobile Application" },
-    { client: "eloola", category: "B2B SaaS" },
-    { client: "Egyptian Ministries", category: "Tablet & Mobile Application" },
-    { client: "Zero Emission Industries", category: "Hydrogen Vessel Monitoring System" },
-    { client: "Telgani", category: "Mobile Application" },
-    { client: "Pelcro", category: "B2B SaaS" },
-  ],
-};
