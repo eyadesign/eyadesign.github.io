@@ -1,0 +1,23 @@
+name: Keep inbox awake
+
+# Free Supabase projects pause after 7 days without activity, which would
+# break the contact form. A tiny daily request keeps the database active.
+on:
+  schedule:
+    - cron: "17 6 * * *"
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Supabase
+        run: |
+          code=$(curl -s -o /dev/null -w "%{http_code}" \
+            "https://otciwugogxxbfczhggan.supabase.co/rest/v1/messages?select=id&limit=1" \
+            -H "apikey: sb_publishable_ES7tEC4lr8eVS6dkoDyvIA_PHxuXJ7b")
+          echo "Supabase responded with HTTP $code"
+          # 401/403 is expected (visitors can't read messages) — it still counts as activity.
+          if [ "$code" -ge 500 ] || [ "$code" = "000" ]; then exit 1; fi
