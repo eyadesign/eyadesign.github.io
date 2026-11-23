@@ -12,7 +12,7 @@ const archivo = Archivo({
 });
 
 export const metadata: Metadata = {
-  title: "Eyad Mahmoud — Senior UI/UX & Product Designer",
+  title: { default: "Eyad", template: "%s - Eyad" },
   description:
     "Eyad Mahmoud is a Senior UI/UX & Product Designer based in Alexandria, Egypt, designing highly usable SaaS, mobile and web products for clients across the USA, Europe and the Middle East.",
   openGraph: {

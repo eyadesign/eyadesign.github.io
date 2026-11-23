@@ -6,7 +6,7 @@ import { Contact } from "@/components/Contact";
 import { Reveal } from "@/components/Reveal";
 
 export const metadata: Metadata = {
-  title: "Work — Eyad Mahmoud",
+  title: "Work",
   description: "Selected UI/UX and product design case studies by Eyad Mahmoud.",
 };
 
