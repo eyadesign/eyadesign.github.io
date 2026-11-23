@@ -11,7 +11,7 @@ import {
 } from "framer-motion";
 import { asset } from "@/lib/asset";
 import { site } from "@/lib/site";
-import { ArrowBox, Bolt, Sparkle } from "./Icons";
+import { ArrowBox } from "./Icons";
 import { ease } from "./Reveal";
 
 const useIsoLayoutEffect = typeof window === "undefined" ? useEffect : useLayoutEffect;
@@ -116,6 +116,21 @@ function FlyingCard({ m, progress }: { m: Metrics; progress: MotionValue<number>
       </motion.div>
       </motion.div>
     </motion.div>
+  );
+}
+
+/** Pre-rendered 3D icon (source SVGs live in /design/icons). */
+function Icon3D({ src }: { src: string }) {
+  return (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src={asset(src)}
+      alt=""
+      width={512}
+      height={512}
+      draggable={false}
+      className="pointer-events-none block h-auto w-full drop-shadow-[0_18px_22px_rgba(0,0,0,0.22)]"
+    />
   );
 }
 
@@ -247,7 +262,7 @@ export function HeroAbout() {
               aria-hidden="true"
               title="Drag me"
               {...dragProps}
-              className="absolute -left-[0.42em] -top-[0.18em] z-10 block w-[0.62em] cursor-grab select-none active:cursor-grabbing max-[600px]:-left-[0.15em] max-[600px]:-top-[0.55em]"
+              className="absolute -left-[0.5em] -top-[0.26em] z-10 block w-[0.74em] cursor-grab select-none active:cursor-grabbing max-[600px]:-left-[0.15em] max-[600px]:-top-[0.55em]"
               initial={{ scale: 0, rotate: -120, opacity: 0 }}
               animate={{ scale: 1, rotate: 0, opacity: 1 }}
               transition={{ duration: 1.2, ease, delay: 0.7 }}
@@ -257,7 +272,7 @@ export function HeroAbout() {
                 animate={reduce ? undefined : { rotate: [0, 12, 0], y: [0, -6, 0] }}
                 transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
               >
-                <Sparkle className="h-auto w-full drop-shadow-[0_12px_18px_rgba(0,0,0,0.25)]" />
+                <Icon3D src="/images/icon-sparkle.webp" />
               </motion.span>
             </motion.span>
 
@@ -265,9 +280,9 @@ export function HeroAbout() {
               aria-hidden="true"
               title="Drag me"
               {...dragProps}
-              className="absolute -bottom-[0.42em] -right-[0.5em] z-10 block w-[0.85em] cursor-grab select-none active:cursor-grabbing max-[600px]:-right-[0.1em] max-[600px]:-bottom-[0.75em]"
+              className="absolute -bottom-[0.42em] -right-[0.5em] z-10 block w-[0.9em] cursor-grab select-none active:cursor-grabbing max-[600px]:-right-[0.1em] max-[600px]:-bottom-[0.75em]"
               initial={{ scale: 0, rotate: 60, opacity: 0 }}
-              animate={{ scale: 1, rotate: 14, opacity: 1 }}
+              animate={{ scale: 1, rotate: 6, opacity: 1 }}
               transition={{ duration: 1.2, ease, delay: 0.85 }}
             >
               <motion.span
@@ -275,7 +290,7 @@ export function HeroAbout() {
                 animate={reduce ? undefined : { y: [0, 8, 0], rotate: [0, -6, 0] }}
                 transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
               >
-                <Bolt className="h-auto w-full drop-shadow-[0_12px_18px_rgba(0,0,0,0.25)]" />
+                <Icon3D src="/images/icon-bolt.webp" />
               </motion.span>
             </motion.span>
           </h1>

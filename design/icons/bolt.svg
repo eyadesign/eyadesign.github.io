@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+<defs><filter id="inflate" x="-10%" y="-10%" width="120%" height="120%" color-interpolation-filters="sRGB">
+  <feGaussianBlur in="SourceAlpha" stdDeviation="15" result="h"/>
+  <feDiffuseLighting in="h" surfaceScale="10" diffuseConstant="1" lighting-color="#1f1f26" result="d">
+    <feDistantLight azimuth="235" elevation="48"/>
+  </feDiffuseLighting>
+  <feSpecularLighting in="h" surfaceScale="12" specularConstant="1.35" specularExponent="95" lighting-color="#ffffff" result="s">
+    <fePointLight x="180" y="60" z="200"/>
+  </feSpecularLighting>
+  <feSpecularLighting in="h" surfaceScale="12" specularConstant="0.5" specularExponent="18" lighting-color="#9aa0b4" result="s2">
+    <fePointLight x="380" y="90" z="160"/>
+  </feSpecularLighting>
+  <feSpecularLighting in="h" surfaceScale="12" specularConstant="1.7" specularExponent="10" lighting-color="#8463ff" result="r">
+    <fePointLight x="0" y="580" z="60"/>
+  </feSpecularLighting>
+  <feComposite in="d" in2="SourceAlpha" operator="in" result="dd"/>
+  <feComposite in="s" in2="SourceAlpha" operator="in" result="ss"/>
+  <feComposite in="s2" in2="SourceAlpha" operator="in" result="ss2"/>
+  <feComposite in="r" in2="SourceAlpha" operator="in" result="rr"/>
+  <feBlend in="ss" in2="dd" mode="screen" result="a"/>
+  <feBlend in="ss2" in2="a" mode="screen" result="a2"/>
+  <feBlend in="rr" in2="a2" mode="screen"/>
+</filter>
+</defs>
+<path filter="url(#inflate)" fill="#000" stroke="#000" stroke-width="34" stroke-linejoin="round"
+ d="M318 52 L128 290 L246 290 L202 460 L392 212 L276 212 Z"/>
+</svg>
