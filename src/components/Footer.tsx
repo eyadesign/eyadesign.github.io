@@ -13,12 +13,8 @@ export function Footer() {
   return (
     <footer ref={ref} className="relative overflow-hidden bg-ink text-paper">
       <div className="container-x grid gap-12 pb-10 pt-[clamp(64px,8vw,110px)] md:grid-cols-[1.3fr_1fr_1fr]">
-        <p className="text-[clamp(40px,4.4vw,68px)] font-semibold leading-none tracking-[-0.02em]">
-          Simplifying
-          <br />
-          Complex
-          <br />
-          Products.
+        <p className="whitespace-pre-line text-[clamp(40px,4.4vw,68px)] font-semibold leading-none tracking-[-0.02em]">
+          {site.footerTagline}
         </p>
 
         <div>
@@ -59,7 +55,7 @@ export function Footer() {
           style={{ y }}
           className="absolute left-1/2 top-0 -translate-x-1/2 select-none whitespace-nowrap text-[clamp(160px,29vw,420px)] font-bold leading-[0.9] tracking-[-0.04em] text-paper/10"
         >
-          EYAD
+          {site.footerBigName}
         </motion.p>
       </div>
       <p className="sr-only">© 2026 {site.fullName}</p>

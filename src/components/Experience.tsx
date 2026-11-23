@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { experience } from "@/lib/site";
+import { experience, home } from "@/lib/site";
 import { Reveal, ease } from "./Reveal";
 
 const initials = (s: string) =>
@@ -12,7 +12,7 @@ export function Experience() {
     <section id="experience" className="py-[clamp(60px,8vw,100px)]">
       <div className="container-x">
         <Reveal>
-          <h2 className="t-h2 mb-10">Experience</h2>
+          <h2 className="t-h2 mb-10">{home.experience.heading}</h2>
         </Reveal>
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {experience.map((e, i) => (

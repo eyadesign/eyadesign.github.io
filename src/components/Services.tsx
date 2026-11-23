@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { services } from "@/lib/site";
+import { home, services } from "@/lib/site";
 import { Reveal, ease } from "./Reveal";
 
 export function Services() {
@@ -9,7 +9,7 @@ export function Services() {
     <section id="services" className="scroll-mt-8 py-[clamp(80px,10vw,140px)]">
       <div className="container-x">
         <Reveal>
-          <h2 className="t-h2 mb-[clamp(32px,5vw,64px)]">Services</h2>
+          <h2 className="t-h2 mb-[clamp(32px,5vw,64px)]">{home.services.heading}</h2>
         </Reveal>
         <ul>
           {services.map((s, i) => (

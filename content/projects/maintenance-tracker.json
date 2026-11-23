@@ -1,0 +1,67 @@
+{
+  "slug": "maintenance-tracker",
+  "order": 1,
+  "featured": true,
+  "title": "Maintenance Tracker",
+  "tagline": "B2B SaaS for Car Maintenance Centers",
+  "category": "B2B SaaS",
+  "platform": "Web App",
+  "client": "USA",
+  "summary": "A SaaS product designed for car maintenance centers in the USA. It streamlines daily operations, enhances efficiency and reduces costs, tailored to the needs of each maintenance center.",
+  "cover": "/work/maintenance-tracker/cover.webp",
+  "blocks": [
+    {
+      "title": "The Problem",
+      "body": "Users were struggling with the work order flow: the place where they receive cars, inspect them and carry out every procedure a car needs, across the different roles inside a maintenance center.\n\nAs a UX design team, our goal was to analyze the pain points raised by the business team in the work order flow, and implement design improvements that make it easier to use and reduce task time.",
+      "images": [
+        "/work/maintenance-tracker/01.webp"
+      ]
+    },
+    {
+      "title": "Task Analysis & Usability Review",
+      "body": "We ran a task analysis to understand the users' goals and the tasks they perform to achieve them, breaking complex tasks into smaller steps and identifying pain points where users might struggle.\n\nHierarchical task analysis diagrams were built for each core role, such as the engineer (inspector) and the service advisor, then paired with an expert usability review of every step of the flow.",
+      "images": [
+        "/work/maintenance-tracker/02.webp",
+        "/work/maintenance-tracker/03.webp"
+      ]
+    },
+    {
+      "title": "Expert Review Findings",
+      "bullets": [
+        "There was no edit or delete option for an inspection.",
+        "The plus icon conveyed the wrong meaning.",
+        "Two lines of tabs went against the best practices of tabs.",
+        "Saving a report was not clear or descriptive.",
+        "The “show to technician” option appeared before any technician was selected."
+      ],
+      "images": [
+        "/work/maintenance-tracker/04.webp"
+      ]
+    },
+    {
+      "title": "Ideating Solutions",
+      "body": "Before usability testing, we ideated solutions for the problems uncovered by the task analysis and review: a more descriptive inspection flow with inline “add inspection”, a cleaner parts mapping step, clearer client approval with confirmation, and a maintenance view split into parts, operations and programming.",
+      "images": [
+        "/work/maintenance-tracker/05.webp",
+        "/work/maintenance-tracker/06.webp",
+        "/work/maintenance-tracker/07.webp"
+      ]
+    },
+    {
+      "title": "Usability Testing",
+      "body": "To validate whether the proposed solutions improved the work order flow, we ran usability testing tailored to car maintenance engineers. The second inspection proposal proved more usable and resulted in a lower task time.",
+      "images": [
+        "/work/maintenance-tracker/08.webp",
+        "/work/maintenance-tracker/09.webp"
+      ]
+    },
+    {
+      "title": "Designing a Better Experience",
+      "body": "With enough data to understand the flow's problems, we designed the improved experience across inspection, parts mapping, client approval, parts order, maintenance, validation and history.",
+      "images": [
+        "/work/maintenance-tracker/10.webp"
+      ]
+    }
+  ],
+  "clientLabel": "Market"
+}

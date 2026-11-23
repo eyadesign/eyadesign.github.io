@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Inbox — Eyad</title>
+    <link rel="icon" href="/icon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&display=swap" rel="stylesheet" />
+    <style>
+      :root { --bg: #faf7f3; --ink: #111; --muted: rgba(17,17,17,.55); --line: rgba(17,17,17,.1); --accent: #7d5cff; }
+      * { box-sizing: border-box; }
+      body { margin: 0; background: var(--bg); color: var(--ink); font: 400 16px/1.45 Archivo, system-ui, sans-serif; letter-spacing: -0.02em; }
+      button, input { font: inherit; letter-spacing: inherit; }
+      .wrap { max-width: 920px; margin: 0 auto; padding: 32px 20px 80px; }
+      header { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; margin-bottom: 28px; }
+      h1 { font-size: 44px; font-weight: 600; letter-spacing: -0.03em; margin: 0; line-height: 1; }
+      .count { color: var(--muted); font-size: 15px; margin-top: 6px; }
+      .actions { display: flex; gap: 8px; flex-wrap: wrap; }
+      .btn { border: 1px solid var(--line); background: #fff; color: var(--ink); padding: 8px 12px; border-radius: 10px; cursor: pointer; text-decoration: none; font-size: 14px; }
+      .btn:hover { border-color: var(--ink); }
+      .btn.dark { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+      .btn.danger:hover { border-color: #c0392b; color: #c0392b; }
+      .tabs { display: flex; gap: 6px; margin-bottom: 16px; }
+      .tab { padding: 7px 12px; border-radius: 999px; border: 1px solid var(--line); background: transparent; cursor: pointer; font-size: 14px; }
+      .tab[aria-selected="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+      .card { background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: 18px 20px; margin-bottom: 10px; }
+      .card.unread { border-color: var(--ink); box-shadow: inset 3px 0 0 var(--accent); }
+      .row { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; align-items: baseline; }
+      .name { font-weight: 600; font-size: 18px; }
+      .meta { color: var(--muted); font-size: 14px; }
+      .msg { white-space: pre-wrap; word-break: break-word; margin: 12px 0 14px; }
+      .empty, .note { color: var(--muted); padding: 40px 0; text-align: center; }
+      .login { max-width: 420px; margin: 12vh auto 0; background: #111; color: var(--bg); border-radius: 20px; padding: 28px; }
+      .login h1 { font-size: 36px; margin-bottom: 8px; }
+      .login p { color: rgba(250,247,243,.7); margin: 0 0 18px; }
+      .login input { width: 100%; padding: 11px 12px; border-radius: 10px; border: 1px solid rgba(250,247,243,.2); background: rgba(255,255,255,.05); color: var(--bg); margin-bottom: 10px; }
+      .login button { width: 100%; padding: 11px; border-radius: 10px; border: 0; background: var(--bg); color: var(--ink); font-weight: 600; cursor: pointer; }
+      .login .status { min-height: 20px; margin-top: 12px; font-size: 14px; color: rgba(250,247,243,.75); }
+      [hidden] { display: none !important; }
+    </style>
+  </head>
+  <body>
+    <!-- Sign in -->
+    <section id="login" class="login" hidden>
+      <h1>Inbox</h1>
+      <p>Enter your email and I’ll send you a sign-in link.</p>
+      <form id="login-form">
+        <input id="email" type="email" required autocomplete="email" placeholder="you@example.com" />
+        <button type="submit">Send sign-in link</button>
+      </form>
+      <div id="login-status" class="status" role="status" aria-live="polite"></div>
+    </section>
+
+    <!-- Inbox -->
+    <main id="app" class="wrap" hidden>
+      <header>
+        <div>
+          <h1>Messages</h1>
+          <div id="count" class="count"></div>
+        </div>
+        <div class="actions">
+          <a class="btn" href="/admin/">Content editor</a>
+          <a class="btn" href="/" target="_blank" rel="noreferrer">View site ↗</a>
+          <button id="refresh" class="btn">Refresh</button>
+          <button id="signout" class="btn">Sign out</button>
+        </div>
+      </header>
+      <div class="tabs" role="tablist">
+        <button class="tab" role="tab" data-view="inbox" aria-selected="true">Inbox</button>
+        <button class="tab" role="tab" data-view="archived" aria-selected="false">Archived</button>
+      </div>
+      <div id="list"></div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.119.0/dist/umd/supabase.js"></script>
+    <script>
+      const SUPABASE_URL = "https://otciwugogxxbfczhggan.supabase.co";
+      const SUPABASE_KEY = "sb_publishable_ES7tEC4lr8eVS6dkoDyvIA_PHxuXJ7b";
+      const OWNER = "eyad1.mahmoud1@gmail.com";
+      const db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+      const $ = (id) => document.getElementById(id);
+      let view = "inbox";
+
+      // Messages are visitor input: always render with textContent, never innerHTML.
+      function el(tag, props = {}, children = []) {
+        const node = document.createElement(tag);
+        for (const [k, v] of Object.entries(props)) {
+          if (k === "text") node.textContent = v;
+          else if (k === "onclick") node.addEventListener("click", v);
+          else node.setAttribute(k, v);
+        }
+        children.forEach((c) => c && node.append(c));
+        return node;
+      }
+
+      function fmt(d) {
+        return new Date(d).toLocaleString(undefined, { dateStyle: "medium", timeStyle: "short" });
+      }
+
+      async function update(id, patch) {
+        const { error } = await db.from("messages").update(patch).eq("id", id);
+        if (error) alert("Couldn’t update: " + error.message);
+        load();
+      }
+
+      async function remove(id) {
+        if (!confirm("Delete this message permanently? This can’t be undone.")) return;
+        const { error } = await db.from("messages").delete().eq("id", id);
+        if (error) alert("Couldn’t delete: " + error.message);
+        load();
+      }
+
+      async function load() {
+        const list = $("list");
+        list.replaceChildren(el("div", { class: "note", text: "Loading…" }));
+        const { data, error } = await db
+          .from("messages")
+          .select("*")
+          .eq("archived", view === "archived")
+          .order("created_at", { ascending: false });
+        if (error) {
+          list.replaceChildren(el("div", { class: "note", text: "Couldn’t load messages: " + error.message }));
+          return;
+        }
+        const unread = data.filter((m) => !m.is_read).length;
+        $("count").textContent =
+          view === "inbox" ? `${data.length} message${data.length === 1 ? "" : "s"} · ${unread} unread` : `${data.length} archived`;
+        document.title = unread && view === "inbox" ? `(${unread}) Inbox — Eyad` : "Inbox — Eyad";
+        if (!data.length) {
+          list.replaceChildren(el("div", { class: "empty", text: view === "inbox" ? "No messages yet." : "Nothing archived." }));
+          return;
+        }
+        list.replaceChildren(
+          ...data.map((m) => {
+            const reply = `mailto:${encodeURIComponent(m.email)}?subject=${encodeURIComponent("Re: your message on my portfolio")}`;
+            return el("article", { class: "card" + (m.is_read ? "" : " unread") }, [
+              el("div", { class: "row" }, [
+                el("div", {}, [
+                  el("div", { class: "name", text: m.name }),
+                  el("a", { class: "meta", href: reply, text: m.email }),
+                ]),
+                el("div", { class: "meta", text: fmt(m.created_at) + (m.source ? " · " + m.source : "") }),
+              ]),
+              el("p", { class: "msg", text: m.project }),
+              el("div", { class: "actions" }, [
+                el("a", { class: "btn dark", href: reply, onclick: () => !m.is_read && update(m.id, { is_read: true }), text: "Reply" }),
+                el("button", { class: "btn", onclick: () => update(m.id, { is_read: !m.is_read }), text: m.is_read ? "Mark unread" : "Mark read" }),
+                el("button", { class: "btn", onclick: () => update(m.id, { archived: !m.archived }), text: m.archived ? "Move to inbox" : "Archive" }),
+                el("button", { class: "btn danger", onclick: () => remove(m.id), text: "Delete" }),
+              ]),
+            ]);
+          })
+        );
+      }
+
+      function show(session) {
+        const signedIn = !!session;
+        $("login").hidden = signedIn;
+        $("app").hidden = !signedIn;
+        if (!signedIn) return;
+        const email = (session.user.email || "").toLowerCase();
+        if (email !== OWNER) {
+          $("list").replaceChildren(el("div", { class: "note", text: `Signed in as ${email}, which doesn’t have access to this inbox.` }));
+          $("count").textContent = "";
+          return;
+        }
+        load();
+      }
+
+      $("login-form").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const status = $("login-status");
+        const email = $("email").value.trim().toLowerCase();
+        if (email !== OWNER) {
+          status.textContent = "This inbox is private.";
+          return;
+        }
+        status.textContent = "Sending…";
+        const { error } = await db.auth.signInWithOtp({
+          email,
+          options: { emailRedirectTo: location.origin + "/admin/inbox/", shouldCreateUser: true },
+        });
+        status.textContent = error ? "Couldn’t send: " + error.message : "Check your email for the sign-in link.";
+      });
+
+      $("signout").addEventListener("click", () => db.auth.signOut());
+      $("refresh").addEventListener("click", load);
+      document.querySelectorAll(".tab").forEach((t) =>
+        t.addEventListener("click", () => {
+          view = t.dataset.view;
+          document.querySelectorAll(".tab").forEach((x) => x.setAttribute("aria-selected", String(x === t)));
+          load();
+        })
+      );
+
+      db.auth.onAuthStateChange((_event, session) => show(session));
+      db.auth.getSession().then(({ data }) => show(data.session));
+    </script>
+  </body>
+</html>

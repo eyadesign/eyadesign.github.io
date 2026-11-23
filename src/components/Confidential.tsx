@@ -2,22 +2,22 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { alsoUnderNda, confidential } from "@/lib/site";
+import { alsoUnderNda, confidential, home } from "@/lib/site";
 import { asset } from "@/lib/asset";
 import { ArrowBox, LockIcon } from "./Icons";
 import { Reveal, ease } from "./Reveal";
 
 /** "Under NDA" work — mirrors the reference's dark editorial cards. */
-export function Confidential({ limit }: { limit?: number }) {
+export function Confidential({ home: onHome = false }: { home?: boolean }) {
+  const limit = onHome ? home.nda.homeCount : undefined;
   const items = limit ? confidential.slice(0, limit) : confidential;
   return (
     <section id="nda" className="py-[clamp(60px,8vw,100px)]">
       <div className="container-x">
         <Reveal className="mb-10 flex flex-wrap items-end justify-between gap-4">
-          <h2 className="t-h2">Under NDA</h2>
+          <h2 className="t-h2">{home.nda.heading}</h2>
           <p className="t-body max-w-[380px] text-[var(--ink-50)]">
-            Confidential product work. Detailed case studies are available during the interview
-            process.
+            {home.nda.intro}
           </p>
         </Reveal>
 
@@ -61,7 +61,7 @@ export function Confidential({ limit }: { limit?: number }) {
             <div>
               <LockIcon className="mb-6 h-7 w-7 text-paper/60" />
               <p className="text-[clamp(30px,3vw,44px)] leading-[1.15] tracking-[-0.03em]">
-                More work lives behind NDAs. Happy to walk you through it.
+                {home.nda.cardText}
               </p>
               {!limit && (
                 <ul className="t-small mt-6 space-y-1 text-paper/60">
@@ -72,7 +72,7 @@ export function Confidential({ limit }: { limit?: number }) {
               )}
             </div>
             <Link href="/#contact" className="group t-body mt-8 inline-flex items-center gap-2">
-              Request a walkthrough <ArrowBox />
+              {home.nda.ctaLabel} <ArrowBox />
             </Link>
           </motion.article>
         </div>

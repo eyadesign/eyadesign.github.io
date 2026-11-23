@@ -10,14 +10,14 @@ import {
   type MotionValue,
 } from "framer-motion";
 import { asset } from "@/lib/asset";
-import { site } from "@/lib/site";
+import { home, site } from "@/lib/site";
 import { ArrowBox } from "./Icons";
 import { ease } from "./Reveal";
 
 const useIsoLayoutEffect = typeof window === "undefined" ? useEffect : useLayoutEffect;
 
-const BW = "/images/eyad-bw.webp";
-const RED = "/images/eyad-red.webp";
+const BW = home.hero.portraitFront;
+const RED = home.hero.portraitBack;
 
 type Metrics = {
   x1: number; y1: number; w1: number;
@@ -253,9 +253,9 @@ export function HeroAbout() {
         <div className="container-x relative flex flex-1 items-center justify-center pb-[18vh] max-[899px]:pb-0">
           <h1 className="t-hero relative text-center">
             <span className="sr-only">{site.fullName}, </span>
-            <Line delay={0.25}>Product</Line>
+            <Line delay={0.25}>{home.hero.line1}</Line>
             <Line delay={0.38}>
-              <span className="pl-[0.2em] max-[600px]:pl-0">Designer</span>
+              <span className="pl-[0.2em] max-[600px]:pl-0">{home.hero.line2}</span>
             </Line>
 
             <motion.span
@@ -304,7 +304,7 @@ export function HeroAbout() {
               transition={{ duration: 0.9, ease, delay: 0.75 }}
               className="text-[clamp(40px,4.4vw,68px)] font-semibold leading-none tracking-[-0.02em] max-[899px]:hidden"
             >
-              ©2026
+              {home.hero.year}
             </motion.p>
 
             <div
@@ -332,7 +332,7 @@ export function HeroAbout() {
               transition={{ duration: 0.9, ease, delay: 0.85 }}
               className="t-body uppercase max-[899px]:order-3"
             >
-              /Designing since {site.since}
+              {home.hero.tagline}
             </motion.p>
           </div>
         </div>
@@ -343,12 +343,11 @@ export function HeroAbout() {
         <div className="container-x grid gap-10 min-[900px]:grid-cols-[1fr_auto_1fr] min-[900px]:gap-12">
           <div className="flex flex-col justify-between gap-8">
             <Reveal2>
-              <h2 className="t-h2">Hey!</h2>
+              <h2 className="t-h2">{home.about.heading}</h2>
             </Reveal2>
             <Reveal2 delay={0.1}>
               <p className="t-lead max-w-[320px]">
-                I’m Eyad, a Senior UI/UX & Product Designer based in Alexandria, Egypt,
-                currently leading design at Tritecs.
+                {home.about.lead}
               </p>
             </Reveal2>
           </div>
@@ -365,22 +364,14 @@ export function HeroAbout() {
           </div>
 
           <div className="flex flex-col justify-end gap-5">
-            <Reveal2>
-              <p className="t-body max-w-[360px]">
-                I design highly usable products for global clients across the USA, Europe and
-                the Middle East, grounded in research, usability and scalable design systems.
-              </p>
-            </Reveal2>
-            <Reveal2 delay={0.08}>
-              <p className="t-body max-w-[360px]">
-                I’ve trained and mentored 1,000+ UI/UX students at UX Gate, and I bring AI into
-                my process with a focus on how people intuitively interact with intelligent
-                systems.
-              </p>
-            </Reveal2>
+            {home.about.paragraphs.map((t, i) => (
+              <Reveal2 key={i} delay={i * 0.08}>
+                <p className="t-body max-w-[360px]">{t}</p>
+              </Reveal2>
+            ))}
             <Reveal2 delay={0.16}>
               <Link href="/#contact" className="group t-body inline-flex items-center gap-2">
-                Let’s work together <ArrowBox />
+                {home.about.ctaLabel} <ArrowBox />
               </Link>
             </Reveal2>
           </div>

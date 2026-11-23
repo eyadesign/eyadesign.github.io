@@ -1,0 +1,204 @@
+# Sveltia CMS configuration — https://github.com/sveltia/sveltia-cms
+# Every save commits to GitHub; the site redeploys automatically in ~1 minute.
+
+backend:
+  name: github
+  repo: eyadesign/eyadesign.github.io
+  branch: main
+
+site_url: https://eyadesign.github.io
+display_url: https://eyadesign.github.io
+logo_url: /icon.png
+
+media_folder: public/uploads
+public_folder: /uploads
+
+editor:
+  preview: false
+
+collections:
+  # ───────────────────────── Case studies ─────────────────────────
+  - name: projects
+    label: Case Studies
+    label_singular: Case Study
+    description: Your projects. Each one gets its own page at /work/<slug>/.
+    folder: content/projects
+    extension: json
+    format: json
+    create: true
+    delete: true
+    identifier_field: title
+    slug: "{{slug}}"
+    summary: "{{order}} · {{title}} — {{tagline}}"
+    sortable_fields: [order, title]
+    fields:
+      - { label: Title, name: title, widget: string }
+      - label: URL slug
+        name: slug
+        widget: string
+        required: false
+        hint: "Lowercase words with dashes (e.g. carhive). Leave empty on new projects to use the title. Changing it changes the page URL."
+      - { label: Order, name: order, widget: number, value_type: int, default: 10, hint: "Lower numbers appear first." }
+      - { label: Show on homepage (Featured), name: featured, widget: boolean, default: false }
+      - { label: Card subtitle, name: tagline, widget: string, hint: "Short line under the project name on cards." }
+      - { label: Cover image, name: cover, widget: image, hint: "Shown on cards and at the top of the case study. Landscape works best." }
+      - { label: Summary, name: summary, widget: text, hint: "Intro paragraph next to the project details." }
+      - { label: Category, name: category, widget: string }
+      - { label: Platform, name: platform, widget: string }
+      - label: Third detail label
+        name: clientLabel
+        widget: select
+        options: [Client, Market, Region, Company]
+        default: Client
+      - { label: Third detail value, name: client, widget: string }
+      - label: Sections
+        name: blocks
+        widget: list
+        label_singular: Section
+        summary: "{{fields.title}}"
+        fields:
+          - { label: Heading, name: title, widget: string }
+          - label: Text
+            name: body
+            widget: text
+            required: false
+            hint: "Separate paragraphs with an empty line."
+          - label: Bullet points
+            name: bullets
+            widget: list
+            required: false
+            field: { label: Point, name: point, widget: string }
+          - label: Images
+            name: images
+            widget: list
+            required: false
+            hint: "1 image = full width, 2 = side by side, 3 = one wide + two."
+            field: { label: Image, name: image, widget: image }
+      - label: NDA note (optional)
+        name: note
+        widget: text
+        required: false
+        hint: "Shows a dark 'request the full case study' banner at the end."
+
+  # ───────────────────────── Pages & settings ─────────────────────────
+  - name: pages
+    label: Pages & Settings
+    files:
+      - name: home
+        label: Home page
+        file: content/home.json
+        format: json
+        fields:
+          - label: Hero
+            name: hero
+            widget: object
+            fields:
+              - { label: Title line 1, name: line1, widget: string }
+              - { label: Title line 2, name: line2, widget: string }
+              - { label: Bottom-left text, name: year, widget: string }
+              - { label: Bottom-right text, name: tagline, widget: string }
+              - { label: Portrait (front, black & white), name: portraitFront, widget: image }
+              - { label: Portrait (back, color), name: portraitBack, widget: image }
+          - label: About (Hey!)
+            name: about
+            widget: object
+            fields:
+              - { label: Heading, name: heading, widget: string }
+              - { label: Bold intro, name: lead, widget: text }
+              - label: Paragraphs
+                name: paragraphs
+                widget: list
+                field: { label: Paragraph, name: paragraph, widget: text }
+              - { label: Link label, name: ctaLabel, widget: string }
+          - { label: Scroll statement, name: statement, widget: text, hint: "Words darken one by one as visitors scroll." }
+          - label: Services
+            name: services
+            widget: object
+            fields:
+              - { label: Heading, name: heading, widget: string }
+              - label: Services
+                name: items
+                widget: list
+                summary: "{{fields.title}}"
+                fields:
+                  - { label: Service, name: title, widget: string }
+                  - label: Tags
+                    name: tags
+                    widget: list
+                    field: { label: Tag, name: tag, widget: string }
+          - label: Featured projects section
+            name: featured
+            widget: object
+            hint: Choose which projects appear here with "Show on homepage" in each case study.
+            fields:
+              - { label: Heading, name: heading, widget: text }
+              - { label: Link label, name: linkLabel, widget: string }
+          - label: Experience
+            name: experience
+            widget: object
+            fields:
+              - { label: Heading, name: heading, widget: string }
+              - label: Roles
+                name: items
+                widget: list
+                summary: "{{fields.company}} — {{fields.role}}"
+                fields:
+                  - { label: Company, name: company, widget: string }
+                  - { label: Role, name: role, widget: string }
+                  - { label: Period, name: period, widget: string }
+                  - { label: Description, name: text, widget: text }
+          - label: Under NDA
+            name: nda
+            widget: object
+            fields:
+              - { label: Heading, name: heading, widget: string }
+              - { label: Intro, name: intro, widget: text }
+              - { label: Dark card text, name: cardText, widget: text }
+              - { label: Dark card link label, name: ctaLabel, widget: string }
+              - { label: Cards shown on homepage, name: homeCount, widget: number, value_type: int, min: 0, default: 2 }
+              - label: Confidential projects
+                name: items
+                widget: list
+                summary: "{{fields.title}}"
+                fields:
+                  - { label: Title, name: title, widget: string }
+                  - { label: Small label, name: meta, widget: string }
+                  - { label: Description, name: text, widget: text }
+                  - { label: Image, name: image, widget: image }
+              - label: Also under NDA (text list on the Work page)
+                name: also
+                widget: list
+                field: { label: Item, name: item, widget: string }
+          - label: Contact
+            name: contact
+            widget: object
+            fields:
+              - { label: Heading, name: heading, widget: string }
+              - { label: Text, name: text, widget: text }
+              - { label: Message after sending, name: successText, widget: string }
+
+      - name: work
+        label: Work page
+        file: content/work.json
+        format: json
+        fields:
+          - { label: Heading, name: heading, widget: text }
+          - { label: Intro, name: intro, widget: text }
+          - { label: '"More projects" heading', name: moreProjectsHeading, widget: string }
+
+      - name: settings
+        label: Site settings
+        file: content/settings.json
+        format: json
+        fields:
+          - { label: Browser tab title, name: seoTitle, widget: string }
+          - { label: Search/social description, name: seoDescription, widget: text }
+          - { label: Short name (menu & tab), name: name, widget: string }
+          - { label: Full name, name: fullName, widget: string }
+          - { label: Role, name: role, widget: string }
+          - { label: Location, name: location, widget: string }
+          - { label: Email, name: email, widget: string }
+          - { label: LinkedIn URL, name: linkedin, widget: string }
+          - { label: Behance URL, name: behance, widget: string }
+          - { label: Footer tagline, name: footerTagline, widget: text }
+          - { label: Footer big name, name: footerBigName, widget: string }

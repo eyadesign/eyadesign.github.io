@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Eyad — Content editor</title>
+    <link rel="icon" href="/icon.png" />
+    <style>
+      .inbox-link {
+        position: fixed;
+        right: 16px;
+        bottom: 16px;
+        z-index: 2147483647;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 14px;
+        border-radius: 12px;
+        background: #111;
+        color: #faf7f3;
+        font: 500 14px/1 system-ui, -apple-system, "Segoe UI", sans-serif;
+        text-decoration: none;
+        box-shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.5);
+      }
+      .inbox-link:hover { background: #000; }
+    </style>
+  </head>
+  <body>
+    <!-- Sveltia CMS reads ./config.yml -->
+    <script src="https://unpkg.com/@sveltia/cms@0.262.1/dist/sveltia-cms.js"></script>
+    <a class="inbox-link" href="/admin/inbox/">✉ Messages inbox</a>
+  </body>
+</html>

@@ -1,0 +1,55 @@
+{
+  "slug": "pex",
+  "order": 3,
+  "featured": true,
+  "title": "Palestine Exchange",
+  "tagline": "Stock Exchange Platform Redesign",
+  "category": "Fintech",
+  "platform": "Desktop & Mobile Web",
+  "client": "Palestine Exchange",
+  "summary": "The official Palestine stock exchange platform, giving users comprehensive stock tracking, legal insights and in-depth Palestinian market information, redesigned for usability and visual clarity.",
+  "cover": "/work/pex/cover.webp",
+  "blocks": [
+    {
+      "title": "Goals",
+      "bullets": [
+        "Align with the business on all needs.",
+        "Identify usability issues and possible information architecture enhancements.",
+        "Design a more usable, useful and visually appealing platform."
+      ],
+      "images": [
+        "/work/pex/01.webp"
+      ]
+    },
+    {
+      "title": "01 — Competitive Analysis",
+      "body": "A thorough competitive analysis identified industry-leading standards in information architecture, navigation and visual data representation.",
+      "images": [
+        "/work/pex/02.webp"
+      ]
+    },
+    {
+      "title": "02 — Medium Fidelity Wireframes",
+      "body": "Medium fidelity wireframes established the right information architecture, intuitive navigation and effective visual data representation before any visual design.",
+      "images": [
+        "/work/pex/03.webp"
+      ]
+    },
+    {
+      "title": "03 — Designing a Better Experience",
+      "body": "The wireframes were transformed into high fidelity designs that blend aesthetics with stronger functionality, elevating the trading experience.",
+      "images": [
+        "/work/pex/04.webp"
+      ]
+    },
+    {
+      "title": "Before & After",
+      "images": [
+        "/work/pex/05.webp",
+        "/work/pex/06.webp",
+        "/work/pex/07.webp"
+      ]
+    }
+  ],
+  "clientLabel": "Client"
+}

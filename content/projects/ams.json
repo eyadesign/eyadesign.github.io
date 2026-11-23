@@ -1,0 +1,43 @@
+{
+  "slug": "ams",
+  "order": 4,
+  "featured": true,
+  "title": "AMS Mobile App",
+  "tagline": "Antimicrobial Stewardship · Pfizer",
+  "category": "Healthcare",
+  "platform": "Mobile App",
+  "client": "Pfizer",
+  "summary": "Improve antibiotic use in your hospital with an AMS assessment. A mobile app that guides healthcare professionals through assessing their Antimicrobial Stewardship Program and delivers Pfizer certificates for hospitals.",
+  "cover": "/work/ams/cover.webp",
+  "blocks": [
+    {
+      "title": "Goal & Scope",
+      "body": "Design a user interface for a mobile app that guides healthcare professionals through an assessment of their Antimicrobial Stewardship Program (ASP).\n\nThe project focused on an intuitive, user-friendly UI that walks users through a comprehensive assessment, highlighting areas of strength and identifying opportunities for improvement.",
+      "images": [
+        "/work/ams/01.webp"
+      ]
+    },
+    {
+      "title": "01 — Competitive Analysis",
+      "body": "We analyzed existing indirect competitors to identify their strengths, weaknesses and potential areas for improvement in the proposed app.",
+      "images": [
+        "/work/ams/02.webp"
+      ]
+    },
+    {
+      "title": "02 — Ideation",
+      "body": "Using the “Crazy 8s” technique, we rapidly generated a diverse range of UI concepts and functionalities within a time-boxed session.",
+      "images": [
+        "/work/ams/03.webp"
+      ]
+    },
+    {
+      "title": "03 — UI Design",
+      "body": "Based on the insights from the previous phases, we designed the app's interface for clarity, intuitiveness and a seamless assessment experience.",
+      "images": [
+        "/work/ams/04.webp"
+      ]
+    }
+  ],
+  "clientLabel": "Client"
+}

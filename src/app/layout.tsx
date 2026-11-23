@@ -4,6 +4,7 @@ import "./globals.css";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { SmoothScroll } from "@/components/SmoothScroll";
+import { site } from "@/lib/site";
 
 const archivo = Archivo({
   variable: "--font-archivo",
@@ -12,9 +13,8 @@ const archivo = Archivo({
 });
 
 export const metadata: Metadata = {
-  title: { default: "Eyad", template: "%s - Eyad" },
-  description:
-    "Eyad Mahmoud is a Senior UI/UX & Product Designer based in Alexandria, Egypt, designing highly usable SaaS, mobile and web products for clients across the USA, Europe and the Middle East.",
+  title: { default: site.seoTitle, template: `%s - ${site.name}` },
+  description: site.seoDescription,
   openGraph: {
     title: "Eyad Mahmoud — Senior UI/UX & Product Designer",
     description:

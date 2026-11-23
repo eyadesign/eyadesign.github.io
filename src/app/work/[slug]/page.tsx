@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getProject, moreProjects, projects } from "@/lib/projects";
-import { site } from "@/lib/site";
+import { getProject, moreProjects, paragraphs, projects } from "@/lib/projects";
+import { site, work } from "@/lib/site";
 import { Reveal } from "@/components/Reveal";
 import { CaseImage } from "@/components/CaseImage";
 import { ProjectCard } from "@/components/ProjectCard";
@@ -69,14 +69,14 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
             <section key={b.title} className="pt-[clamp(64px,8vw,110px)]">
               <Reveal className="max-w-[760px]">
                 <h2 className="t-h3">{b.title}</h2>
-                {b.text?.map((t, i) => (
+                {paragraphs(b.body).map((t, i) => (
                   <p key={i} className="t-body mt-4">
                     {t}
                   </p>
                 ))}
-                {b.list && (
+                {b.bullets && b.bullets.length > 0 && (
                   <ul className="mt-4 space-y-2">
-                    {b.list.map((l, i) => (
+                    {b.bullets.map((l, i) => (
                       <li key={i} className="t-body flex gap-3">
                         <span className="mt-[0.6em] h-1.5 w-1.5 shrink-0 rounded-full bg-ink" />
                         {l}
@@ -128,7 +128,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
       <section className="py-[clamp(80px,10vw,140px)]">
         <div className="container-x">
           <Reveal>
-            <h2 className="t-h2 mb-10">More Projects</h2>
+            <h2 className="t-h2 mb-10">{work.moreProjectsHeading}</h2>
           </Reveal>
           <div className="grid gap-x-4 gap-y-10 md:grid-cols-2">
             {moreProjects(p.slug).map((m, i) => (

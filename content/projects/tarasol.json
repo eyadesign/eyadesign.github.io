@@ -1,0 +1,53 @@
+{
+  "slug": "tarasol",
+  "order": 6,
+  "featured": false,
+  "title": "Tarasol",
+  "tagline": "Ministries Communication App",
+  "category": "Government",
+  "platform": "Tablet & Mobile",
+  "client": "Egyptian Ministries",
+  "summary": "The main tool used by Egyptian ministries for internal and external communication: exchanging correspondence, tasks and attachments, redesigned for clarity and usability.",
+  "cover": "/work/tarasol/cover.webp",
+  "blocks": [
+    {
+      "title": "Overview & Scope",
+      "body": "Tarasol is a tablet and mobile application that streamlines communication within Egyptian government ministries. The project aimed to improve its usability and adoption across ministries.\n\nThe scope covered UI simplification, optimizing functionality for efficient access to information, and consistency across the tablet and mobile apps.",
+      "images": [
+        "/work/tarasol/overview.webp"
+      ]
+    },
+    {
+      "title": "Challenges",
+      "bullets": [
+        "Complex interface: the initial interface was cluttered and lacked intuitive navigation, causing confusion and frustration.",
+        "Information overload: users needed to access all relevant content at once, without excessive scrolling, to act efficiently."
+      ],
+      "images": [
+        "/work/tarasol/01.webp"
+      ]
+    },
+    {
+      "title": "01 — Competitive Analysis",
+      "body": "To find best practices in flow efficiency and task completion time, we analyzed indirect competitors and evaluated their strengths and weaknesses.",
+      "images": [
+        "/work/tarasol/02.webp"
+      ]
+    },
+    {
+      "title": "02 — Ideation & Testing",
+      "body": "Using the “Crazy 8s” technique, we rapidly generated a diverse range of UI concepts and functionalities within a time-boxed session.",
+      "images": [
+        "/work/tarasol/03.webp"
+      ]
+    },
+    {
+      "title": "03 — UI Design",
+      "body": "Based on the insights from the previous phases, we designed an interface built for clarity, intuitiveness and a seamless experience on tablet and mobile.",
+      "images": [
+        "/work/tarasol/04.webp"
+      ]
+    }
+  ],
+  "clientLabel": "Client"
+}

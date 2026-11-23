@@ -1,0 +1,63 @@
+{
+  "slug": "gaith",
+  "order": 5,
+  "featured": false,
+  "title": "Gaith",
+  "tagline": "Donation Platform Mobile App",
+  "category": "Non-profit",
+  "platform": "Mobile App",
+  "client": "Arab World",
+  "summary": "One of the largest donation platforms in the Arab world, redesigned as a mobile app that makes giving simpler, more transparent and accessible.",
+  "cover": "/work/gaith/cover.webp",
+  "blocks": [
+    {
+      "title": "Goals",
+      "bullets": [
+        "Create a user-friendly and intuitive mobile application.",
+        "Let users view detailed information about charities.",
+        "Make the app accessible to users with disabilities."
+      ],
+      "images": [
+        "/work/gaith/01.webp"
+      ]
+    },
+    {
+      "title": "01 — User Research",
+      "body": "Extensive research to understand the target audience, including their needs, preferences and pain points.",
+      "images": [
+        "/work/gaith/02.webp"
+      ]
+    },
+    {
+      "title": "02 — Low Fidelity Wireframes",
+      "body": "The research and personas shaped a basic layout and structure for the mobile application.",
+      "images": [
+        "/work/gaith/03.webp"
+      ]
+    },
+    {
+      "title": "03 — Designing a Better Experience",
+      "body": "In the high fidelity phase, the client's vision and user needs became pixel-perfect screens, with refined typography, color and layout for a cohesive interface.",
+      "images": [
+        "/work/gaith/04.webp",
+        "/work/gaith/05.webp",
+        "/work/gaith/06.webp"
+      ]
+    },
+    {
+      "title": "04 — Interactive Prototype",
+      "body": "The high fidelity screens became a functional prototype, letting users explore the solutions and give feedback before development.",
+      "images": [
+        "/work/gaith/07.webp"
+      ]
+    },
+    {
+      "title": "05 — Usability Testing",
+      "body": "Participants navigated the prototype through real-world scenarios, helping us identify usability issues and make sure the final product felt intuitive and seamless.",
+      "images": [
+        "/work/gaith/08.webp"
+      ]
+    }
+  ],
+  "clientLabel": "Market"
+}

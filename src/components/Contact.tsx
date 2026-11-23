@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { site } from "@/lib/site";
+import { home, inbox, site } from "@/lib/site";
 import { BehanceIcon, LinkedInIcon, MailIcon } from "./Icons";
 import { Reveal } from "./Reveal";
 
@@ -11,16 +11,46 @@ const field =
 export function Contact() {
   const [copied, setCopied] = useState(false);
 
-  function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const [draft, setDraft] = useState({ name: "", email: "", project: "" });
+
+  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const data = new FormData(e.currentTarget);
+    const form = e.currentTarget;
+    const data = new FormData(form);
     const name = String(data.get("name") ?? "").trim();
     const email = String(data.get("email") ?? "").trim();
     const project = String(data.get("project") ?? "").trim();
-    const subject = `Project inquiry${name ? ` from ${name}` : ""}`;
-    const body = `${project}\n\n— ${name}${email ? ` (${email})` : ""}`;
-    window.location.href = `mailto:${site.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    setDraft({ name, email, project });
+    // Honeypot: bots fill hidden fields, people don't.
+    if (String(data.get("website") ?? "")) {
+      setStatus("sent");
+      return;
+    }
+    setStatus("sending");
+    try {
+      const res = await fetch(`${inbox.url}/rest/v1/messages`, {
+        method: "POST",
+        headers: {
+          apikey: inbox.key,
+          "Content-Type": "application/json",
+          Prefer: "return=minimal",
+        },
+        body: JSON.stringify({ name, email, project, source: window.location.pathname }),
+      });
+      if (!res.ok) throw new Error(String(res.status));
+      form.reset();
+      setStatus("sent");
+    } catch {
+      setStatus("error");
+    }
   }
+
+  const mailtoFallback = `mailto:${site.email}?subject=${encodeURIComponent(
+    `Project inquiry${draft.name ? ` from ${draft.name}` : ""}`
+  )}&body=${encodeURIComponent(`${draft.project}
+
+— ${draft.name}${draft.email ? ` (${draft.email})` : ""}`)}`;
 
   async function copyEmail() {
     try {
@@ -42,9 +72,9 @@ export function Contact() {
       <div className="container-x grid gap-12 md:grid-cols-2">
         <Reveal className="flex flex-col justify-between gap-10">
           <div>
-            <h2 className="t-h2">Let’s talk.</h2>
+            <h2 className="t-h2">{home.contact.heading}</h2>
             <p className="t-body mt-4 max-w-[380px]">
-              Have a product worth improving? Fill out the form and I’ll get back to you soon.
+              {home.contact.text}
             </p>
             <button
               type="button"
@@ -80,8 +110,16 @@ export function Contact() {
         <Reveal delay={0.1}>
           <form
             onSubmit={onSubmit}
-            className="flex flex-col gap-4 rounded-[20px] bg-ink p-5 text-paper md:ml-auto md:max-w-[460px]"
+            className="relative flex flex-col gap-4 rounded-[20px] bg-ink p-5 text-paper md:ml-auto md:max-w-[460px]"
           >
+            <input
+              type="text"
+              name="website"
+              tabIndex={-1}
+              autoComplete="off"
+              aria-hidden="true"
+              className="absolute left-[-9999px] h-0 w-0 opacity-0"
+            />
             <label className="flex flex-col gap-2 text-[15px]">
               Name
               <input name="name" required autoComplete="name" placeholder="Enter your name" className={field} />
@@ -96,11 +134,23 @@ export function Contact() {
             </label>
             <button
               type="submit"
-              className="mt-1 rounded-[8px] bg-paper py-2.5 text-[15px] font-medium text-ink transition-transform duration-200 hover:scale-[1.01] active:scale-[0.99]"
+              disabled={status === "sending"}
+              className="mt-1 rounded-[8px] bg-paper py-2.5 text-[15px] font-medium text-ink transition-transform duration-200 hover:scale-[1.01] active:scale-[0.99] disabled:opacity-60"
             >
-              Submit
+              {status === "sending" ? "Sending…" : "Submit"}
             </button>
-            <p className="text-center text-[13px] text-paper/40">Opens your email app with the message ready.</p>
+            <p role="status" aria-live="polite" className="min-h-[20px] text-center text-[13px] text-paper/60">
+              {status === "sent" && home.contact.successText}
+              {status === "error" && (
+                <>
+                  Couldn’t send right now.{" "}
+                  <a href={mailtoFallback} className="underline underline-offset-2">
+                    Email me instead
+                  </a>
+                  .
+                </>
+              )}
+            </p>
           </form>
         </Reveal>
       </div>

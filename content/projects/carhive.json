@@ -1,0 +1,58 @@
+{
+  "slug": "carhive",
+  "order": 2,
+  "featured": true,
+  "title": "CarHive",
+  "tagline": "Car Rental Mobile App in KSA",
+  "category": "Car Rental",
+  "platform": "Mobile App",
+  "client": "Saudi Arabia",
+  "summary": "A leading car rental app in KSA. CarHive lets customers search available rental cars, choose pick-up and drop-off locations and select rental periods directly from their phone.",
+  "cover": "/work/carhive/cover.webp",
+  "note": "Due to NDA restrictions, the full case study is available upon request.",
+  "blocks": [
+    {
+      "title": "Problem & Goal",
+      "body": "CarHive, a car rental service based in Saudi Arabia, was facing low conversion rates and high cancellation rates on its mobile app, resulting in a poor experience for customers.\n\nOur goal was to identify the pain points in the app's user journey and implement design improvements that increase conversion, reduce cancellations and improve the overall experience.\n\nWe chose the design thinking framework (Empathize, Define, Ideate, Prototype, Test) as a user-centric way to deeply understand user needs, the problem context and its constraints.",
+      "images": [
+        "/work/carhive/01.webp"
+      ]
+    },
+    {
+      "title": "01 — Information Architecture",
+      "body": "Using information architecture testing methods like card sorting and tree testing, we tested CarHive's information architecture to identify findability problems.",
+      "images": [
+        "/work/carhive/02.webp"
+      ]
+    },
+    {
+      "title": "02 — Competitive Analysis",
+      "body": "Analyzing competitors' booking flows helped us identify problems in our own process. By studying their flows thoroughly, we found areas for improvement.",
+      "images": [
+        "/work/carhive/03.webp"
+      ]
+    },
+    {
+      "title": "03 — Heuristic Evaluation",
+      "body": "A heuristic evaluation surfaced deeper issues that are easy to miss but quietly affect the experience, and we recommended a solution for each one.",
+      "images": [
+        "/work/carhive/04.webp"
+      ]
+    },
+    {
+      "title": "04 — Usability Testing",
+      "body": "We used Useberry to run unmoderated usability testing and gather feedback efficiently, then complemented it with remote moderated sessions to explore user behavior in more depth.",
+      "images": [
+        "/work/carhive/05.webp"
+      ]
+    },
+    {
+      "title": "05 — Designing a Better Experience",
+      "body": "With enough data to understand the problem and the market, we designed an improved experience across search, car details and booking.",
+      "images": [
+        "/work/carhive/06.webp"
+      ]
+    }
+  ],
+  "clientLabel": "Market"
+}

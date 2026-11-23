@@ -15,7 +15,7 @@ export default function Home() {
       <Services />
       <FeaturedProjects />
       <Experience />
-      <Confidential limit={2} />
+      <Confidential home />
       <Contact />
     </>
   );

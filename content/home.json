@@ -1,0 +1,111 @@
+{
+  "hero": {
+    "line1": "Product",
+    "line2": "Designer",
+    "year": "©2026",
+    "tagline": "/Designing since 2021",
+    "portraitFront": "/images/eyad-bw.webp",
+    "portraitBack": "/images/eyad-red.webp"
+  },
+  "about": {
+    "heading": "Hey!",
+    "lead": "I’m Eyad, a Senior UI/UX & Product Designer based in Alexandria, Egypt, currently leading design at Tritecs.",
+    "paragraphs": [
+      "I design highly usable products for global clients across the USA, Europe and the Middle East, grounded in research, usability and scalable design systems.",
+      "I’ve trained and mentored 1,000+ UI/UX students at UX Gate, and I bring AI into my process with a focus on how people intuitively interact with intelligent systems."
+    ],
+    "ctaLabel": "Let’s work together"
+  },
+  "statement": "From research to release. I turn complex workflows, user needs and business goals into clear, usable and polished products, driven by evidence, structured systems and intentional design.",
+  "services": {
+    "heading": "Services",
+    "items": [
+      { "title": "Product Design", "tags": ["SaaS", "Mobile Apps", "Web Platforms"] },
+      { "title": "UX Research", "tags": ["Usability Testing", "Card Sorting", "Heuristics"] },
+      { "title": "UI & Design Systems", "tags": ["Components", "Variables", "Visual Design"] },
+      { "title": "Workflow Design", "tags": ["User Flows", "Wireframes", "Prototyping"] },
+      { "title": "Design Mentorship", "tags": ["UX Gate", "1,000+ Students", "Workshops"] }
+    ]
+  },
+  "featured": {
+    "heading": "Featured\nProjects",
+    "linkLabel": "View All Work"
+  },
+  "experience": {
+    "heading": "Experience",
+    "items": [
+      {
+        "company": "Tritecs",
+        "role": "Senior UI/UX Designer",
+        "period": "May 2025 — Present",
+        "text": "Managing and leading UX/UI design for globally distributed SaaS and digital products across the USA and Europe, from user flows and workflow design to wireframes, prototypes and close collaboration with product and engineering."
+      },
+      {
+        "company": "Blue Holding",
+        "role": "UI/UX Designer",
+        "period": "Jan 2024 — May 2025",
+        "text": "Managed UI/UX design for multinational pharmaceutical clients, optimizing user experiences to meet industry standards."
+      },
+      {
+        "company": "UX Gate",
+        "role": "Product Designer & Instructor",
+        "period": "Aug 2022 — Present",
+        "text": "Leading projects with major external companies to enhance their products, and training and mentoring 1,000+ students in UI/UX, from research and wireframing to information architecture."
+      },
+      {
+        "company": "Freelance",
+        "role": "UX Designer",
+        "period": "Sep 2021 — Aug 2022",
+        "text": "Designed the user experience for Match Koora, Hawwesh and other products through user research, wireframes and prototypes."
+      }
+    ]
+  },
+  "nda": {
+    "heading": "Under NDA",
+    "intro": "Confidential product work. Detailed case studies are available during the interview process.",
+    "cardText": "More work lives behind NDAs. Happy to walk you through it.",
+    "ctaLabel": "Request a walkthrough",
+    "homeCount": 2,
+    "items": [
+      {
+        "title": "Return Requests Portal",
+        "meta": "Enterprise · Pharmaceutical",
+        "text": "An enterprise web portal for submitting and reviewing medicine return requests.",
+        "image": "/nda/return-portal.webp"
+      },
+      {
+        "title": "Unified E-Commerce Platform",
+        "meta": "Customer Web · App · Admin",
+        "text": "Four experiences, one connected commerce ecosystem.",
+        "image": "/nda/ecommerce.webp"
+      },
+      {
+        "title": "Booking System",
+        "meta": "B2B SaaS · Medical & Beauty",
+        "text": "Appointments for medical and beauty centers, admin and customer sides.",
+        "image": "/nda/booking.webp"
+      },
+      {
+        "title": "Medical Learning Platform",
+        "meta": "Web LMS · Healthcare",
+        "text": "Continuous medical education for healthcare professionals.",
+        "image": "/nda/medical-lms.webp"
+      },
+      {
+        "title": "Utility & Environmental Dashboard",
+        "meta": "Data Visualization",
+        "text": "Visualizing data for a small town's resource management.",
+        "image": "/nda/utility-dashboard.webp"
+      }
+    ],
+    "also": [
+      "Zero Emission Industries — H2Os hydrogen vessel telemetry",
+      "Pelcro — subscription onboarding & import flow"
+    ]
+  },
+  "contact": {
+    "heading": "Let’s talk.",
+    "text": "Have a product worth improving? Fill out the form and I’ll get back to you soon.",
+    "successText": "Thanks! Your message is on its way. I’ll get back to you soon."
+  }
+}
