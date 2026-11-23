@@ -119,8 +119,51 @@ function FlyingCard({ m, progress }: { m: Metrics; progress: MotionValue<number>
   );
 }
 
+/** Mobile: the card fades in B&W, then flips to the red portrait. Tap to flip it back. */
+function AutoFlipCard({ reduce }: { reduce: boolean }) {
+  const [flipped, setFlipped] = useState(true);
+  const [touched, setTouched] = useState(false);
+  const face =
+    "absolute inset-0 overflow-hidden rounded-[18px] shadow-[0_24px_40px_-24px_rgba(0,0,0,0.6)]";
+  const hidden = { backfaceVisibility: "hidden" as const, WebkitBackfaceVisibility: "hidden" as const };
+  return (
+    <motion.div
+      className="h-full w-full"
+      initial={{ opacity: 0, y: 40 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 1, ease, delay: 0.55 }}
+    >
+      <motion.button
+        type="button"
+        onClick={() => {
+          setTouched(true);
+          setFlipped((f) => !f);
+        }}
+        aria-label="Flip portrait"
+        className="relative block h-full w-full"
+        style={{ transformStyle: "preserve-3d", transformPerspective: 900 }}
+        initial={{ rotateY: reduce ? 180 : 0 }}
+        animate={{ rotateY: flipped ? 180 : 0 }}
+        transition={{
+          duration: reduce ? 0 : 1.1,
+          ease: [0.65, 0, 0.35, 1],
+          delay: reduce || touched ? 0 : 1.6,
+        }}
+      >
+        <div className={`${face} bg-ink`} style={hidden}>
+          <Portrait src={BW} alt={`Portrait of ${site.fullName}`} />
+        </div>
+        <div className={`${face} bg-[#7a0000]`} style={{ ...hidden, transform: "rotateY(180deg)" }}>
+          <Portrait src={RED} alt="" />
+        </div>
+      </motion.button>
+    </motion.div>
+  );
+}
+
 export function HeroAbout() {
   const wrapRef = useRef<HTMLDivElement>(null);
+  const heroRef = useRef<HTMLElement>(null);
   const heroSlot = useRef<HTMLDivElement>(null);
   const aboutSlot = useRef<HTMLDivElement>(null);
   const reduce = useReducedMotion();
@@ -174,10 +217,21 @@ export function HeroAbout() {
     };
   }, [measure, desktop]);
 
+  // The sparkle and bolt can be grabbed and tossed around the hero, like the reference.
+  const dragProps = {
+    drag: true as const,
+    dragConstraints: heroRef,
+    dragElastic: 0.3,
+    dragTransition: { bounceStiffness: 280, bounceDamping: 16, power: 0.4 },
+    whileDrag: { scale: 1.18 },
+    style: { touchAction: "none" as const },
+  };
+
   return (
     <div ref={wrapRef} className="relative">
       {/* ───────────── Hero ───────────── */}
       <section
+        ref={heroRef}
         id="top"
         className="relative flex min-h-[640px] flex-col overflow-x-clip pt-28 h-[100svh]"
       >
@@ -190,7 +244,10 @@ export function HeroAbout() {
             </Line>
 
             <motion.span
-              className="absolute -left-[0.42em] -top-[0.18em] block w-[0.62em] max-[600px]:-left-[0.15em] max-[600px]:-top-[0.55em]"
+              aria-hidden="true"
+              title="Drag me"
+              {...dragProps}
+              className="absolute -left-[0.42em] -top-[0.18em] z-10 block w-[0.62em] cursor-grab select-none active:cursor-grabbing max-[600px]:-left-[0.15em] max-[600px]:-top-[0.55em]"
               initial={{ scale: 0, rotate: -120, opacity: 0 }}
               animate={{ scale: 1, rotate: 0, opacity: 1 }}
               transition={{ duration: 1.2, ease, delay: 0.7 }}
@@ -205,7 +262,10 @@ export function HeroAbout() {
             </motion.span>
 
             <motion.span
-              className="absolute -bottom-[0.42em] -right-[0.5em] block w-[0.85em] max-[600px]:-right-[0.1em] max-[600px]:-bottom-[0.75em]"
+              aria-hidden="true"
+              title="Drag me"
+              {...dragProps}
+              className="absolute -bottom-[0.42em] -right-[0.5em] z-10 block w-[0.85em] cursor-grab select-none active:cursor-grabbing max-[600px]:-right-[0.1em] max-[600px]:-bottom-[0.75em]"
               initial={{ scale: 0, rotate: 60, opacity: 0 }}
               animate={{ scale: 1, rotate: 14, opacity: 1 }}
               transition={{ duration: 1.2, ease, delay: 0.85 }}
@@ -227,25 +287,28 @@ export function HeroAbout() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.9, ease, delay: 0.75 }}
-              className="text-[clamp(40px,4.4vw,68px)] font-semibold leading-none tracking-[-0.02em] max-[899px]:order-2"
+              className="text-[clamp(40px,4.4vw,68px)] font-semibold leading-none tracking-[-0.02em] max-[899px]:hidden"
             >
               ©2026
             </motion.p>
 
             <div
               ref={heroSlot}
-              className="h-[228px] w-[200px] shrink-0 max-[899px]:order-1 max-[899px]:h-[183px] max-[899px]:w-[160px] min-[900px]:absolute min-[900px]:bottom-8 min-[900px]:left-1/2 min-[900px]:-translate-x-1/2"
+              className="h-[228px] w-[200px] shrink-0 max-[899px]:order-1 max-[899px]:h-[228px] max-[899px]:w-[200px] min-[900px]:absolute min-[900px]:bottom-8 min-[900px]:left-1/2 min-[900px]:-translate-x-1/2"
             >
-              {!animated && (
-                <motion.div
-                  className="h-full w-full overflow-hidden rounded-[18px] bg-ink"
-                  initial={{ opacity: 0, y: 40 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 1, ease, delay: 0.55 }}
-                >
-                  <Portrait src={BW} alt={`Portrait of ${site.fullName}`} />
-                </motion.div>
-              )}
+              {!animated &&
+                (desktop ? (
+                  <motion.div
+                    className="h-full w-full overflow-hidden rounded-[18px] bg-ink"
+                    initial={{ opacity: 0, y: 40 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 1, ease, delay: 0.55 }}
+                  >
+                    <Portrait src={BW} alt={`Portrait of ${site.fullName}`} />
+                  </motion.div>
+                ) : (
+                  <AutoFlipCard reduce={!!reduce} />
+                ))}
             </div>
 
             <motion.p
@@ -277,7 +340,7 @@ export function HeroAbout() {
 
           <div
             ref={aboutSlot}
-            className="mx-auto aspect-[380/433] w-full max-w-[380px] min-[900px]:w-[min(380px,30vw)]"
+            className="mx-auto aspect-[380/433] w-full max-w-[380px] max-[899px]:hidden min-[900px]:w-[min(380px,30vw)]"
           >
             {!animated && (
               <div className="h-full w-full overflow-hidden rounded-[28px] bg-[#7a0000]">

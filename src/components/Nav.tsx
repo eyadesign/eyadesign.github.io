@@ -26,16 +26,16 @@ export function Nav() {
 
   return (
     <motion.header
-      initial={{ y: -80, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.9, ease, delay: 0.1 }}
-      className="fixed inset-x-0 top-5 z-50 flex justify-center px-4"
+      initial={{ y: -24, opacity: 0, filter: "blur(8px)" }}
+      animate={{ y: 0, opacity: 1, filter: "blur(0px)" }}
+      transition={{ duration: 1, ease, delay: 0.1 }}
+      className="fixed inset-x-0 top-5 z-50 flex justify-center px-4 max-[899px]:top-3 max-[899px]:px-3"
     >
       <motion.div
         ref={ref}
         layout
         transition={{ duration: 0.45, ease }}
-        className="w-[min(320px,100%)] overflow-hidden rounded-[16px] border border-white/10 bg-ink p-[11px] pl-[18px] text-paper shadow-[0_10px_30px_-12px_rgba(0,0,0,0.45)]"
+        className="w-full overflow-hidden min-[900px]:w-[320px] rounded-[16px] border border-white/10 bg-ink p-[11px] pl-[18px] text-paper shadow-[0_10px_30px_-12px_rgba(0,0,0,0.45)]"
       >
         <div className="flex items-center justify-between">
           <Link
