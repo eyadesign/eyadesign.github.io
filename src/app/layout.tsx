@@ -13,13 +13,21 @@ const archivo = Archivo({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(site.siteUrl),
   title: { default: site.seoTitle, template: `%s - ${site.name}` },
   description: site.seoDescription,
   openGraph: {
-    title: "Eyad Mahmoud — Senior UI/UX & Product Designer",
-    description:
-      "Research-driven product design, usability and scalable design systems for global clients.",
+    title: `${site.fullName} — ${site.role}`,
+    description: site.seoDescription,
     type: "website",
+    siteName: site.fullName,
+    images: [{ url: site.shareImage, width: 1200, height: 1200, alt: site.fullName }],
+  },
+  twitter: {
+    card: "summary",
+    title: `${site.fullName} — ${site.role}`,
+    description: site.seoDescription,
+    images: [site.shareImage],
   },
 };
 
