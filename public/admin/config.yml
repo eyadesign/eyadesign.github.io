@@ -40,6 +40,8 @@ collections:
         hint: "Lowercase words with dashes (e.g. carhive). Leave empty on new projects to use the title. Changing it changes the page URL."
       - { label: Order, name: order, widget: number, value_type: int, default: 10, hint: "Lower numbers appear first." }
       - { label: Show on homepage (Featured), name: featured, widget: boolean, default: false }
+      - { label: Spotlight (large card on top), name: spotlight, widget: boolean, default: false, required: false, hint: "Only one project should be the spotlight." }
+      - { label: Spotlight label, name: spotlightLabel, widget: string, required: false }
       - { label: Card subtitle, name: tagline, widget: string, hint: "Short line under the project name on cards." }
       - { label: Cover image, name: cover, widget: image, hint: "Shown on cards and at the top of the case study. Landscape works best." }
       - { label: Summary, name: summary, widget: text, hint: "Intro paragraph next to the project details." }

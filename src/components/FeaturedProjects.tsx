@@ -1,7 +1,8 @@
 import Link from "next/link";
-import { featured } from "@/lib/projects";
+import { featured, spotlight } from "@/lib/projects";
 import { home } from "@/lib/site";
 import { ProjectCard } from "./ProjectCard";
+import { SpotlightCard } from "./SpotlightCard";
 import { Reveal } from "./Reveal";
 import { ArrowBox } from "./Icons";
 
@@ -15,6 +16,7 @@ export function FeaturedProjects() {
             {home.featured.linkLabel} <ArrowBox />
           </Link>
         </Reveal>
+        {spotlight && <SpotlightCard project={spotlight} />}
         <div className="grid gap-x-4 gap-y-10 md:grid-cols-2">
           {featured.map((p, i) => (
             <ProjectCard key={p.slug} project={p} index={i} />

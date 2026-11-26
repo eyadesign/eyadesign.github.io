@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import { projects } from "@/lib/projects";
+import { others, spotlight } from "@/lib/projects";
 import { ProjectCard } from "@/components/ProjectCard";
+import { SpotlightCard } from "@/components/SpotlightCard";
 import { Confidential } from "@/components/Confidential";
 import { Contact } from "@/components/Contact";
 import { Reveal } from "@/components/Reveal";
@@ -24,8 +25,9 @@ export default function WorkPage() {
               {work.intro}
             </p>
           </Reveal>
-          <div className="mt-14 grid gap-x-4 gap-y-10 md:grid-cols-2">
-            {projects.map((p, i) => (
+          <div className="mt-14">{spotlight && <SpotlightCard project={spotlight} />}</div>
+          <div className="grid gap-x-4 gap-y-10 md:grid-cols-2">
+            {others.map((p, i) => (
               <ProjectCard key={p.slug} project={p} index={i} />
             ))}
           </div>

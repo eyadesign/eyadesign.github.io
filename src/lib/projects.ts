@@ -14,6 +14,9 @@ export interface Project {
   slug: string;
   order?: number;
   featured?: boolean;
+  /** Shown as one large card above the grid. */
+  spotlight?: boolean;
+  spotlightLabel?: string;
   title: string;
   /** Short line under the card title. */
   tagline: string;
@@ -44,7 +47,9 @@ export const projects: Project[] = fs
   })
   .sort((a, b) => (a.order ?? 999) - (b.order ?? 999) || a.title.localeCompare(b.title));
 
-export const featured = projects.filter((p) => p.featured);
+export const spotlight = projects.find((p) => p.spotlight);
+export const featured = projects.filter((p) => p.featured && !p.spotlight);
+export const others = projects.filter((p) => !p.spotlight);
 
 export function getProject(slug: string) {
   return projects.find((p) => p.slug === slug);

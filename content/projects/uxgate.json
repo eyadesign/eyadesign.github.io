@@ -1,0 +1,16 @@
+{
+  "slug": "uxgate",
+  "order": 0,
+  "featured": true,
+  "spotlight": true,
+  "spotlightLabel": "Own product · Led end to end",
+  "title": "UXGate",
+  "tagline": "Practice-first UX learning platform, owned from strategy to launch",
+  "category": "EdTech · Own product",
+  "platform": "Web app · Arabic & English",
+  "clientLabel": "Company",
+  "client": "UXGate",
+  "summary": "A bilingual, practice-first platform where UI/UX designers learn by making real design decisions in 5 to 10 minute lessons. I owned it end to end: strategy, learning research, design and development.",
+  "cover": "/work/uxgate/cover.webp",
+  "blocks": []
+}

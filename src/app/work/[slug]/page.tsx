@@ -6,6 +6,7 @@ import { Reveal } from "@/components/Reveal";
 import { CaseImage } from "@/components/CaseImage";
 import { ProjectCard } from "@/components/ProjectCard";
 import { ArrowBox, LockIcon } from "@/components/Icons";
+import { UXGateStory } from "@/components/UXGateStory";
 
 export function generateStaticParams() {
   return projects.map((p) => ({ slug: p.slug }));
@@ -32,6 +33,31 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
     { label: "Platform", value: p.platform },
     { label: p.clientLabel ?? "Client", value: p.client },
   ];
+
+  const more = (
+    <section className="py-[clamp(80px,10vw,140px)]">
+      <div className="container-x">
+        <Reveal>
+          <h2 className="t-h2 mb-10">{work.moreProjectsHeading}</h2>
+        </Reveal>
+        <div className="grid gap-x-4 gap-y-10 md:grid-cols-2">
+          {moreProjects(p.slug).map((m, i) => (
+            <ProjectCard key={m.slug} project={m} index={i} />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+
+  // UXGate has its own designed showcase instead of the standard block layout.
+  if (p.slug === "uxgate") {
+    return (
+      <>
+        <UXGateStory project={p} />
+        {more}
+      </>
+    );
+  }
 
   return (
     <>
@@ -125,18 +151,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         </div>
       </article>
 
-      <section className="py-[clamp(80px,10vw,140px)]">
-        <div className="container-x">
-          <Reveal>
-            <h2 className="t-h2 mb-10">{work.moreProjectsHeading}</h2>
-          </Reveal>
-          <div className="grid gap-x-4 gap-y-10 md:grid-cols-2">
-            {moreProjects(p.slug).map((m, i) => (
-              <ProjectCard key={m.slug} project={m} index={i} />
-            ))}
-          </div>
-        </div>
-      </section>
+      {more}
     </>
   );
 }
