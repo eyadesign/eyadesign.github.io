@@ -373,6 +373,16 @@ export function HeroAbout() {
               <Link href="/#contact" className="group t-body inline-flex items-center gap-2">
                 {home.about.ctaLabel} <ArrowBox />
               </Link>
+              {site.cv && (
+                <a
+                  href={asset(site.cv)}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="t-body ml-6 inline-flex items-center gap-1.5 underline decoration-[var(--ink-10)] underline-offset-4 transition-colors hover:decoration-ink"
+                >
+                  {site.cvLabel || "Download CV"} ↓
+                </a>
+              )}
             </Reveal2>
           </div>
         </div>

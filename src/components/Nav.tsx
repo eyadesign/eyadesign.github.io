@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { navLinks, site } from "@/lib/site";
+import { asset } from "@/lib/asset";
 import { ease } from "./Reveal";
 
 export function Nav() {
@@ -101,6 +102,23 @@ export function Nav() {
                     </Link>
                   </motion.li>
                 ))}
+                {site.cv && (
+                  <motion.li
+                    initial={{ opacity: 0, y: 8, filter: "blur(4px)" }}
+                    animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                    transition={{ duration: 0.4, ease, delay: 0.05 + navLinks.length * 0.05 }}
+                  >
+                    <a
+                      href={asset(site.cv)}
+                      target="_blank"
+                      rel="noreferrer"
+                      onClick={() => setOpen(false)}
+                      className="inline-block rounded-[8px] border border-paper/40 px-3 py-1.5 text-[15px] text-paper transition-colors hover:bg-paper hover:text-ink"
+                    >
+                      {site.cvLabel || "Download CV"} ↓
+                    </a>
+                  </motion.li>
+                )}
               </ul>
             </motion.nav>
           )}

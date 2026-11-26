@@ -11,5 +11,7 @@
   "behance": "https://behance.net/eyadesign",
   "footerTagline": "Simplifying\nComplex\nProducts.",
   "footerBigName": "EYAD",
-  "shareImage": "/og-image.jpg"
+  "shareImage": "/og-image.jpg",
+  "cv": "/uploads/Eyad-Mahmoud-CV.pdf",
+  "cvLabel": "Download CV"
 }

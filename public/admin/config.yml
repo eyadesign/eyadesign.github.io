@@ -204,5 +204,7 @@ collections:
           - { label: Email, name: email, widget: string }
           - { label: LinkedIn URL, name: linkedin, widget: string }
           - { label: Behance URL, name: behance, widget: string }
+          - { label: CV file (PDF), name: cv, widget: file, required: false, hint: "Upload a new PDF here to replace the CV linked across the site." }
+          - { label: CV link label, name: cvLabel, widget: string, required: false }
           - { label: Footer tagline, name: footerTagline, widget: text }
           - { label: Footer big name, name: footerBigName, widget: string }

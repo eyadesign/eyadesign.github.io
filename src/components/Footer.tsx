@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { footerLinks, site } from "@/lib/site";
+import { asset } from "@/lib/asset";
 
 export function Footer() {
   const ref = useRef<HTMLElement>(null);
@@ -45,6 +46,13 @@ export function Footer() {
             <li>
               <a href={site.behance} target="_blank" rel="noreferrer" className="hover:text-paper">Behance ↗</a>
             </li>
+            {site.cv && (
+              <li>
+                <a href={asset(site.cv)} target="_blank" rel="noreferrer" className="hover:text-paper">
+                  {site.cvLabel || "Download CV"} ↓
+                </a>
+              </li>
+            )}
             <li className="pt-2 text-paper/50">{site.location}</li>
           </ul>
         </div>
